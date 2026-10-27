@@ -1,0 +1,14 @@
+{
+  "name": "axis",
+  "owner": {
+    "name": "kchmok-art"
+  },
+  "description": "axis 스킬 라이브러리 — axis:ppt1(글래스 현황 보고 덱), axis:ppt2(홀로그램 데이터 큐브 덱)",
+  "plugins": [
+    {
+      "name": "axis",
+      "source": "./",
+      "description": "axis 스킬 모음: ppt1·ppt2 (16:9 HTML 현황 보고 덱 + 편집·PDF·모션)"
+    }
+  ]
+}

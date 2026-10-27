@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026 학생역량 인증지수 현황</title>
+<meta name="description" content="2026년 학(부)과별 학생역량 인증지수 현황 보고 (10월 정보공시 재학 기준) – 홀로그램 데이터 큐브 버전">
+<style>
+/* ──────────────────────────────────────────────────────────────
+   Layout : 16:9 (1600×900) 슬라이드 2장을 뷰포트에 맞춰 scale.
+   Look   : 디자인 레퍼런스(연블루 글래스 템플릿) – 흰 유리 카드, 블루 포인트.
+   Effects: Envato "Interactive Data Cube Reveal" 참고 –
+            발광 데이터 큐브, 회로망(네트워크) 파티클, 홀로그램 스캔 리빌,
+            데이터 펄스 트레이스, 네온 엣지 글로우, 3D 큐브 전환, 디지털 카운터.
+   Font   : 나눔스퀘어 (noonnu.cc/font_page/37)
+   ────────────────────────────────────────────────────────────── */
+@font-face{font-family:'NanumSquare';font-weight:300;font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareL.woff2) format('woff2'),
+      url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareL.woff) format('woff')}
+@font-face{font-family:'NanumSquare';font-weight:400;font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareR.woff2) format('woff2'),
+      url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareR.woff) format('woff')}
+@font-face{font-family:'NanumSquare';font-weight:700;font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareB.woff2) format('woff2'),
+      url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareB.woff) format('woff')}
+@font-face{font-family:'NanumSquare';font-weight:800;font-display:swap;
+  src:url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareEB.woff2) format('woff2'),
+      url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@master/NanumSquareEB.woff) format('woff')}
+
+:root{
+  --bg:#E6EEF9; --bg-2:#F6F9FE;
+  --ink:#16243A; --ink-2:#4A5A72; --ink-3:#7F8DA5;
+  --accent:#1F5BE0; --accent-deep:#1240B8; --accent-2:#7FB5F5;
+  --accent-soft:#DCE9FB; --accent-tint:#EEF4FD;
+  --neon:#2FD8FF; --neon-rgb:47,216,255; --violet:#6C5CE7;
+  --target:#E0582B; --gap:#D9E1EC;
+  --glass:rgba(255,255,255,.72); --glass-strong:rgba(255,255,255,.92);
+  --glass-border:rgba(255,255,255,.95);
+  --shadow:0 18px 50px rgba(31,91,224,.13);
+  --shadow-hover:0 30px 70px rgba(31,91,224,.22);
+  --font:'NanumSquare','Nanum Square','Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',sans-serif;
+  --r:22px; --ease:cubic-bezier(.2,.7,.2,1);
+  --slow:0.4;   /* 상시 모션 배속 — 1 = 기준, 2 = 두 배 느리게, 0.4 = 2.5배 빠르게 (클수록 느림). 등장·전환 애니메이션에는 영향 없음 */
+  color-scheme:light;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);overflow:hidden;-webkit-font-smoothing:antialiased;
+  word-break:keep-all;overflow-wrap:normal;line-height:1.5}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ── Stage / 디지털 환경 ─────────────────────────────────── */
+.stage{position:fixed;inset:0;overflow:hidden;
+  background:
+    radial-gradient(1100px 700px at 10% -10%,#FFFFFF 0%,transparent 60%),
+    radial-gradient(900px 600px at 100% 110%,#CFE0FA 0%,transparent 60%),
+    linear-gradient(180deg,var(--bg-2) 0%,var(--bg) 100%)}
+.grid{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.9;
+  background-image:radial-gradient(rgba(31,91,224,.16) 1px,transparent 1.4px);background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(80% 70% at 50% 50%,#000 30%,transparent 100%);mask-image:radial-gradient(80% 70% at 50% 50%,#000 30%,transparent 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.7;pointer-events:none;z-index:0;
+  transform:none}
+.blob-1{width:700px;height:700px;left:-200px;top:-240px;--d:26;background:radial-gradient(circle,#BFD6FA 0%,#A9C8F7 40%,transparent 70%)}
+.blob-2{width:640px;height:640px;right:-160px;top:28%;--d:-18;background:radial-gradient(circle,rgba(47,216,255,.45) 0%,#9CC0F5 45%,transparent 72%)}
+.blob-3{width:520px;height:520px;left:40%;bottom:-260px;--d:32;background:radial-gradient(circle,#FFFFFF 0%,#DCE9FB 50%,transparent 72%)}
+@keyframes drift1{0%,100%{margin:0}50%{margin:40px 0 0 60px}}
+@keyframes drift2{0%,100%{margin:0}50%{margin:-50px 40px 0 0}}
+@keyframes drift3{0%,100%{margin:0}50%{margin:0 0 50px -40px}}
+#net{position:absolute;inset:0;z-index:1;pointer-events:none}
+
+/* 배경 부유 큐브 (floating geometric blocks) */
+.bgfx{position:absolute;inset:0;z-index:1;pointer-events:none;perspective:1200px}
+.bgcube{position:absolute;transform-style:preserve-3d;
+  transform:none}
+.bgcube .box{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-22deg) rotateY(34deg)}
+.bgcube .f{position:absolute;inset:0;border:1.2px solid rgba(var(--neon-rgb),.55);
+  background:linear-gradient(135deg,rgba(127,181,245,.16),rgba(var(--neon-rgb),.05));box-shadow:0 0 14px rgba(var(--neon-rgb),.18)}
+@keyframes spin3d{from{transform:rotateX(0) rotateY(0)}to{transform:rotateX(360deg) rotateY(360deg)}}
+
+/* 커서: 글로우 + 링 */
+.glow{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;pointer-events:none;border-radius:50%;opacity:0;transition:opacity .6s;
+  background:radial-gradient(circle,rgba(255,255,255,.8) 0%,rgba(var(--neon-rgb),.28) 30%,rgba(var(--neon-rgb),0) 70%);mix-blend-mode:soft-light;z-index:5}
+.glow.on{opacity:1}
+.ring{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;pointer-events:none;z-index:50;opacity:0;
+  border:1.5px solid rgba(var(--neon-rgb),.9);box-shadow:0 0 14px rgba(var(--neon-rgb),.55),inset 0 0 10px rgba(var(--neon-rgb),.25);transition:opacity .4s,width .25s,height .25s,margin .25s}
+.ring.on{opacity:1}
+.ring.hot{width:50px;height:50px;margin:-25px 0 0 -25px}
+
+/* ── Deck ──────────────────────────────────────────────────── */
+.deck{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center;z-index:2;perspective:2200px}
+.slide{position:absolute;inset:0;padding:44px 64px 50px;display:flex;flex-direction:column;opacity:0;visibility:hidden;pointer-events:none;
+  transform:rotateY(18deg) translateX(90px) scale(.95);filter:blur(16px) brightness(1.4);transform-origin:50% 50%;
+  transition:opacity .85s var(--ease),transform .85s var(--ease),filter .85s var(--ease),visibility 0s linear .85s}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto;transform:none;filter:none;transition-delay:0s}
+.slide.leaving{transform:rotateY(-16deg) translateX(-90px) scale(.95);filter:blur(12px) brightness(1.2)}
+
+/* 홀로그램 머티리얼라이즈 (스태거 등장 + 스캔라인) */
+.rv{opacity:1;position:relative}
+.slide.active .rv{animation:materialize 1s var(--ease) both;animation-delay:calc(var(--i,0)*110ms + .2s)}
+@keyframes materialize{0%{opacity:0;transform:translateY(28px) scale(.965);filter:blur(10px) brightness(1.7)}55%{filter:blur(0) brightness(1.18)}100%{opacity:1;transform:none;filter:none}}
+.holo::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;z-index:3;
+  background:linear-gradient(180deg,transparent 0%,rgba(var(--neon-rgb),.0) 35%,rgba(var(--neon-rgb),.42) 50%,rgba(255,255,255,.6) 52%,transparent 66%);
+  background-size:100% 36%;background-repeat:no-repeat;background-position:0 -80%}
+.slide.active .holo::before{animation:scan 1.15s ease-out both;animation-delay:calc(var(--i,0)*110ms + .3s)}
+@keyframes scan{0%{opacity:1;background-position:0 -80%}100%{opacity:0;background-position:0 190%}}
+
+/* 타이틀 홀로그램 리빌 */
+.h-reveal{position:relative;display:inline-block}
+.slide.active .h-reveal{animation:hreveal 1.5s var(--ease) both;animation-delay:.45s}
+@keyframes hreveal{0%{clip-path:inset(0 100% 0 0);filter:blur(5px);text-shadow:0 0 22px rgba(var(--neon-rgb),.9)}65%{clip-path:inset(0 -2% 0 0);filter:blur(0)}100%{clip-path:inset(0 -2% 0 0);text-shadow:0 0 0 rgba(var(--neon-rgb),0)}}
+.h-line{position:absolute;top:-4px;bottom:-4px;left:0;width:3px;border-radius:2px;background:var(--neon);box-shadow:0 0 16px 3px rgba(var(--neon-rgb),.8);opacity:0}
+.slide.active .h-line{animation:hline 1.5s var(--ease) both;animation-delay:.45s}
+@keyframes hline{0%{left:0;opacity:1}65%{left:100%;opacity:1}80%{opacity:0}100%{left:100%;opacity:0}}
+
+/* ── Top bar ───────────────────────────────────────────────── */
+.topbar{height:46px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:17px;letter-spacing:-.01em}
+.brand .ic{width:34px;height:34px;filter:drop-shadow(0 0 10px rgba(var(--neon-rgb),.5))}
+.brand small{font-weight:400;color:var(--ink-3);font-size:13px;margin-left:4px}
+.meta{display:flex;align-items:center;gap:18px;font-size:13px;color:var(--ink-2)}
+.meta .num{font-weight:800;color:var(--accent);letter-spacing:.06em}
+.meta .num span{color:var(--ink-3);font-weight:400}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-2);font-weight:700}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px rgba(var(--neon-rgb),.9)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ── Common ────────────────────────────────────────────────── */
+.pill{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 14px;border-radius:999px;background:linear-gradient(135deg,#3B7BEA,var(--accent));color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.02em;box-shadow:0 8px 20px rgba(31,91,224,.28)}
+.pill.ghost{background:var(--glass-strong);color:var(--accent);border:1px solid var(--accent-soft);box-shadow:none}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.9}
+
+.card{position:relative;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--r);box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.card.strong{background:var(--glass-strong)}
+/* 네온 엣지 글로우 + 라이트 스윕 (hover) */
+.neon{transition:box-shadow .5s var(--ease),transform .5s var(--ease)}
+.neon:hover{box-shadow:0 0 0 1px rgba(var(--neon-rgb),.65),0 0 30px rgba(var(--neon-rgb),.35),var(--shadow-hover)}
+.neon::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;z-index:3;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.6) 50%,rgba(var(--neon-rgb),.25) 54%,transparent 68%);transform:translateX(-130%)}
+.neon:hover::after{animation:sweep 1s var(--ease) forwards}
+@keyframes sweep{from{transform:translateX(-130%);opacity:1}to{transform:translateX(130%);opacity:0}}
+.tilt{transform:perspective(1400px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(0);will-change:transform}
+.tilt.is-tilting{transition:transform .09s linear,box-shadow .5s var(--ease)}
+.lift:hover{transform:translateY(-5px)}
+.ic{display:block}
+.foot{height:26px;margin-top:4px;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--ink-3)}
+.foot b{color:var(--ink-2);font-weight:700}
+.foot .foot-cap{width:calc(100% - 676px);font-size:11px;text-align:left}
+.chart-fallback{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;color:var(--ink-3);text-align:center;padding:20px}
+.chart-fallback[hidden]{display:none}
+.foot > span:first-child{max-width:36%}
+
+/* 디지털 카운터 */
+.glitch{text-shadow:0 0 14px rgba(var(--neon-rgb),.9);animation:flicker .16s steps(2) infinite}
+@keyframes flicker{0%{opacity:1}100%{opacity:.75}}
+
+/* 데이터 펄스 트레이스 */
+.trace{position:relative;height:14px;margin:-4px 20px 0}
+.trace::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;border-radius:1px;background:linear-gradient(90deg,transparent,rgba(31,91,224,.28) 12%,rgba(31,91,224,.28) 88%,transparent)}
+.trace i{position:absolute;top:1px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#fff,var(--neon) 45%,rgba(var(--neon-rgb),0) 72%);
+  filter:blur(.3px);animation:pulse-run var(--t,3.2s) cubic-bezier(.4,0,.2,1) infinite;animation-delay:var(--dl,0s);opacity:.95}
+@keyframes pulse-run{0%{left:0;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:calc(100% - 12px);opacity:0}}
+.trace i{display:none}
+.trace b{position:absolute;top:3px;width:8px;height:8px;border-radius:50%;background:#fff;border:2px solid var(--accent);box-shadow:0 0 10px rgba(var(--neon-rgb),.6)}
+
+/* ── Slide 1 ───────────────────────────────────────────────── */
+.s1-body{flex:1;min-height:0;display:grid;grid-template-columns:640px 1fr;gap:36px;margin-top:26px}
+.hero{position:relative;display:flex;flex-direction:column;justify-content:center;gap:18px;padding-right:10px}
+.hero .eyebrow{display:flex;align-items:center;gap:10px}
+.hero .sub{color:var(--accent);font-weight:700;font-size:21px;letter-spacing:-.01em}
+.hero h1{font-size:50px;line-height:1.24;font-weight:800;letter-spacing:-.025em;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--accent);background:linear-gradient(transparent 62%,rgba(var(--neon-rgb),.35) 62%)}
+.hero p{font-size:16.5px;color:var(--ink-2);line-height:1.75;max-width:600px}
+.hero p b{color:var(--ink);font-weight:800}
+
+/* 발광 데이터 큐브 */
+.cube-wrap{position:absolute;right:-6px;top:-18px;width:150px;height:150px;perspective:900px;pointer-events:none;z-index:1;
+  transform:none}
+.cube{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.cube .f{position:absolute;inset:0;border:1.6px solid rgba(var(--neon-rgb),.95);border-radius:6px;
+  background:linear-gradient(135deg,rgba(127,181,245,.28),rgba(var(--neon-rgb),.08) 60%,rgba(255,255,255,.25));
+  box-shadow:0 0 22px rgba(var(--neon-rgb),.45),inset 0 0 26px rgba(var(--neon-rgb),.18)}
+.cube .f::before{content:"";position:absolute;inset:14px;border:1px dashed rgba(var(--neon-rgb),.5);border-radius:4px}
+.cube.inner{inset:40px}
+.cube.inner .f{border-color:rgba(31,91,224,.9);background:linear-gradient(135deg,rgba(31,91,224,.35),rgba(var(--neon-rgb),.2));box-shadow:0 0 18px rgba(31,91,224,.5)}
+.cube.inner .f::before{display:none}
+.core{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px;border-radius:50%;
+  background:radial-gradient(circle,#fff 0%,var(--neon) 35%,rgba(var(--neon-rgb),0) 72%);filter:blur(2px)}
+@keyframes corepulse{0%,100%{transform:scale(.85);opacity:.8}50%{transform:scale(1.25);opacity:1}}
+.cube-shadow{position:absolute;left:12%;right:12%;bottom:-26px;height:22px;border-radius:50%;background:radial-gradient(ellipse,rgba(31,91,224,.35),transparent 70%);filter:blur(4px)}
+.float{position:absolute;pointer-events:none;transform:none}
+.float > .ic{filter:drop-shadow(0 18px 24px rgba(31,91,224,.22))}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+
+.formula{margin-top:4px;padding:22px 24px 20px}
+.formula .ttl{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.formula .ttl h3{font-size:16px;font-weight:800}
+.formula .ttl span{font-size:11.5px;color:var(--ink-3)}
+.frow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fterm{flex:0 0 auto;width:148px;text-align:center;padding:14px 8px 12px;border-radius:18px;background:var(--accent-tint);border:1px solid rgba(31,91,224,.08);transition:transform .4s var(--ease),background .4s,box-shadow .4s}
+.fterm:hover{transform:translateY(-4px);background:#fff;box-shadow:0 0 0 1px rgba(var(--neon-rgb),.5),0 0 18px rgba(var(--neon-rgb),.3)}
+.fterm .ic{width:56px;height:56px;margin:0 auto 6px}
+.fterm .k{font-size:12px;color:var(--ink-3);font-weight:700;letter-spacing:.02em}
+.fterm .v{font-size:22px;font-weight:800;color:var(--ink);margin-top:1px;font-variant-numeric:tabular-nums}
+.fterm .v small{font-size:11px;color:var(--ink-2);font-weight:700}
+.fop{flex:0 0 auto;font-size:26px;font-weight:800;color:var(--accent);text-align:center;line-height:1.1}
+.fop small{display:block;font-size:10px;color:var(--ink-3);font-weight:700}
+.fterm.result{background:linear-gradient(145deg,#3B7BEA,var(--accent-deep));border-color:transparent;color:#fff;box-shadow:0 12px 26px rgba(31,91,224,.32),0 0 24px rgba(var(--neon-rgb),.25);width:124px}
+.fterm.result .k,.fterm.result .v{color:#fff}
+.fterm.result .v{font-size:24px;line-height:1.1}
+.fterm.result .k{opacity:.85}
+/* ── 1p 피드백: 산식 그래픽 확대(결과 밴드), KPI 축소, 칩 비율 설명 ── */
+.fresult{display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px 18px;border-radius:18px;color:#fff;
+  background:linear-gradient(145deg,#3B7BEA,var(--accent-deep));box-shadow:0 14px 30px rgba(31,91,224,.32)}
+.fresult .eq{font-size:30px;font-weight:800;opacity:.9;line-height:1}
+.fresult .big{font-size:42px;font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.fresult .lab{font-size:14.5px;font-weight:800;line-height:1.3}
+.fresult .lab span{display:block;font-size:11.5px;font-weight:400;opacity:.85;margin-top:2px}
+.fresult .goal{margin-left:auto;font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.18);white-space:nowrap}
+.fresult .goal b{font-size:14px}
+.chips-cap{font-size:11px;color:var(--ink-3);margin-bottom:6px}
+
+
+.right{min-height:0;display:grid;grid-template-rows:auto auto 1fr auto;gap:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{padding:12px 14px 11px;display:flex;flex-direction:column;gap:3px;min-height:92px}
+.kpi .ic{position:absolute;right:12px;top:10px;width:34px;height:34px}
+.kpi .k{font-size:12px;color:var(--ink-2);font-weight:700}
+.kpi .v{font-size:26px;font-weight:800;color:var(--accent);letter-spacing:-.02em;line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:13px;color:var(--ink-2);font-weight:700;margin-left:2px}
+.kpi .s{font-size:11px;color:var(--ink-3)}
+
+.gauge-card{min-height:0;display:grid;grid-template-columns:1fr 250px;gap:10px;padding:20px 24px 18px}
+.gauge-card .hd{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.gauge-card .hd h2{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.gauge-card .hd h2 b{color:var(--accent)}
+.gauge-wrap{position:relative;min-height:0;display:flex;flex-direction:column}
+.gauge-box{position:relative;flex:1;min-height:200px}
+.gauge-box canvas{position:absolute;inset:0}
+.gauge-center{position:absolute;left:0;right:0;bottom:14%;text-align:center;pointer-events:none}
+.gauge-center .big{font-size:50px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.gauge-center .lbl{font-size:12.5px;color:var(--ink-3);font-weight:700;margin-top:6px}
+.gauge-center .lbl b{color:var(--target)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;font-size:12px;color:var(--ink-2);margin-top:4px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.stats{display:flex;flex-direction:column;justify-content:center;gap:12px;padding-left:14px;border-left:1px dashed rgba(31,91,224,.22)}
+.stat{padding:12px 14px;border-radius:16px;background:var(--accent-tint);border:1px solid rgba(31,91,224,.08);transition:transform .4s var(--ease),background .4s,box-shadow .4s}
+.stat:hover{transform:translateX(6px);background:#fff;box-shadow:0 0 0 1px rgba(var(--neon-rgb),.5),0 10px 24px rgba(31,91,224,.14)}
+.stat .k{font-size:12px;color:var(--ink-2);font-weight:700;display:flex;justify-content:space-between}
+.stat .k span{color:var(--ink-3);font-weight:400}
+.stat .v{font-size:26px;font-weight:800;color:var(--accent);line-height:1.15;margin-top:2px;font-variant-numeric:tabular-nums}
+.stat .v small{font-size:13px;color:var(--ink-2);margin-left:2px}
+.stat .bar{height:6px;border-radius:3px;background:rgba(31,91,224,.12);margin-top:8px;overflow:hidden}
+.stat .bar i{display:block;height:100%;width:var(--w,50%);border-radius:3px;background:linear-gradient(90deg,var(--neon),var(--accent));transform-origin:left;animation:grow 1.4s var(--ease) both;animation-delay:.7s;box-shadow:0 0 8px rgba(var(--neon-rgb),.6)}
+.stat .bar i.t{background:linear-gradient(90deg,#F2A58C,var(--target));box-shadow:none}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.chip{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px}
+.chip .n{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1;min-width:44px;text-align:center;font-variant-numeric:tabular-nums;color:var(--accent)}
+.chip .n small{font-size:12px;color:var(--ink-2);font-weight:700;margin-left:1px}
+.chip .t{font-size:12px;font-weight:800;color:var(--ink);line-height:1.3}
+.chip .t span{display:block;font-size:10.5px;color:var(--ink-3);font-weight:400;margin-top:2px}
+.chip.good .n{color:#1B8A5A}
+.chip.warn .n{color:var(--target)}
+.chip.mute .n{color:var(--ink-3)}
+
+/* ── Slide 2 ───────────────────────────────────────────────── */
+.s2-head{position:relative;display:flex;align-items:flex-end;justify-content:space-between;margin-top:4px;gap:24px;padding-right:100px}
+.s2-head h1{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-top:0}
+.s2-head h1 em{font-style:normal;color:var(--accent)}
+.s2-head p{font-size:14px;color:var(--ink-2);margin-top:4px}
+.s2-head p b{color:var(--ink);font-weight:800}
+.s2-body{flex:1;min-height:0;display:grid;grid-template-columns:1fr 560px;gap:22px;margin-top:6px}
+.s2-cube{position:absolute;right:0;bottom:-4px;width:80px;height:80px;perspective:800px}
+.s2-cube .cube{inset:10px}
+.s2-cube .cube.inner{inset:29px}
+
+.chart-card{min-height:0;display:flex;flex-direction:column;padding:20px 24px 16px}
+.chart-card .hd{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.chart-card .hd h2{font-size:17px;font-weight:800}
+.chart-card .hd h2 span{font-size:12px;color:var(--ink-3);font-weight:400;margin-left:8px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink-2);margin-top:8px;align-items:center}
+.chart-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-2px}
+.chart-legend i.line{width:16px;height:0;border-top:2px dashed var(--ink);border-radius:0;vertical-align:2px}
+.chart-legend i.line.t{border-color:var(--target)}
+.chart-legend i.band{background:rgba(31,91,224,.09)}
+.chart-legend .sw{margin-left:auto}
+.toggle{height:28px;padding:0 12px;border-radius:999px;border:1px solid var(--accent-soft);background:var(--glass-strong);color:var(--accent);font-size:12px;font-weight:700;transition:background .3s,transform .3s,box-shadow .3s}
+.toggle:hover{background:var(--accent-soft);transform:translateY(-2px);box-shadow:0 0 14px rgba(var(--neon-rgb),.45)}
+.toggle:focus-visible,.navbtn:focus-visible,.dot:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chart-wrap{position:relative;flex:1;min-height:0;margin-top:4px}
+.chart-wrap canvas{position:absolute;inset:0}
+.table-wrap{flex:1;min-height:0;overflow:auto;margin-top:8px;border-radius:14px;border:1px solid var(--accent-soft)}
+table{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--accent-soft);white-space:nowrap}
+th{position:sticky;top:0;background:#fff;color:var(--ink-2);font-weight:800;z-index:1}
+td:first-child,th:first-child{text-align:left}
+tr.below td{background:rgba(31,91,224,.04)}
+tr.pri td:first-child{font-weight:800}
+
+.side{min-height:0;display:grid;grid-template-rows:auto 1fr;gap:12px}
+.insight{padding:16px 20px 14px}
+.insight h2{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.insight ol{list-style:none;display:flex;flex-direction:column;gap:7px}
+.insight li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:8px 12px;border-radius:14px;background:var(--accent-tint);border:1px solid rgba(31,91,224,.07);transition:transform .4s var(--ease),background .4s,box-shadow .4s}
+.insight li:hover{transform:translateX(5px);background:#fff;box-shadow:0 0 0 1px rgba(var(--neon-rgb),.5),0 10px 24px rgba(31,91,224,.14)}
+.insight li .ic{width:34px;height:34px}
+.insight li b{display:block;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:2px}
+.insight li b em{font-style:normal;color:var(--accent)}
+.insight li p{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.insight li p strong{color:var(--ink);font-weight:800}
+
+.priority{min-height:0;padding:14px 20px 10px;display:flex;flex-direction:column}
+.priority h2{font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:space-between}
+.priority h2 span{font-size:12px;color:var(--ink-3);font-weight:400}
+.plist{list-style:none;margin-top:6px;display:flex;flex-direction:column;gap:2px;flex:1;min-height:0}
+.prow{display:grid;grid-template-columns:150px 58px 1fr 54px;align-items:center;gap:10px;padding:2px 10px;border-radius:10px;font-size:12.5px;cursor:default;transition:background .3s,transform .3s var(--ease),box-shadow .3s}
+.prow:hover{background:#fff;transform:translateX(4px);box-shadow:0 0 0 1px rgba(var(--neon-rgb),.5),0 8px 18px rgba(31,91,224,.12)}
+.prow .nm{font-weight:800;color:var(--ink)}
+.prow .st{color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+.prow .bar{height:9px;border-radius:4px;background:rgba(31,91,224,.12);overflow:hidden;position:relative}
+.prow .bar i{display:block;height:100%;width:var(--w);border-radius:4px;background:linear-gradient(90deg,var(--neon),var(--accent));transform-origin:left;animation:grow 1.2s var(--ease) both;animation-delay:calc(.6s + var(--j,0)*80ms)}
+.prow .bar::after{content:"";position:absolute;top:-3px;bottom:-3px;left:calc(100% * 22.57 / 32.1);width:0;border-left:2px dashed var(--ink-3)}
+.prow .ix{font-weight:800;font-size:14px;color:var(--accent);text-align:right;font-variant-numeric:tabular-nums}
+.prow.hd{font-size:11.5px;color:var(--ink-3);font-weight:700}
+.prow.hd:hover{background:none;transform:none;box-shadow:none}
+.prow.hd .nm,.prow.hd .ix{color:var(--ink-3);font-weight:700}
+.pnote{font-size:11.5px;color:var(--ink-3);margin-top:8px;line-height:1.45}
+.pnote b{color:var(--ink-2)}
+/* ── 2p 피드백: 우측 카드 확대·강조 ── */
+.s2-title{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:2px}
+.side .card{background:var(--glass-strong);border:1px solid rgba(31,91,224,.16);box-shadow:0 24px 60px rgba(31,91,224,.2)}
+.side h2{position:relative;padding-left:13px}
+.side h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:4px;border-radius:2px;background:linear-gradient(180deg,var(--accent-2),var(--accent))}
+
+
+/* ── Nav ───────────────────────────────────────────────────── */
+.nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;z-index:10;padding:4px 8px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--glass-border);box-shadow:var(--shadow);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.navbtn{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:var(--accent);transition:background .3s,transform .3s,box-shadow .3s}
+.navbtn:hover{background:var(--accent-soft);transform:scale(1.08);box-shadow:0 0 14px rgba(var(--neon-rgb),.5)}
+.navbtn svg{width:16px;height:16px}
+.dots{display:flex;gap:8px;padding:0 4px}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(31,91,224,.25);transition:all .4s var(--ease)}
+.dot.on{width:26px;border-radius:6px;background:var(--accent);box-shadow:0 0 10px rgba(var(--neon-rgb),.6)}
+.progress{position:fixed;left:0;bottom:0;height:3px;width:100%;background:rgba(31,91,224,.1);z-index:10}
+.progress i{display:block;height:100%;width:var(--p,50%);background:linear-gradient(90deg,var(--neon),var(--accent));transition:width .7s var(--ease);box-shadow:0 0 10px rgba(var(--neon-rgb),.7)}
+.navhint{font-size:11px;color:var(--ink-3);padding:0 6px 0 4px;white-space:nowrap}
+.navhint kbd{font:inherit;padding:1px 6px;border-radius:6px;border:1px solid var(--accent-soft);background:#fff;margin:0 2px}
+
+
+/* ── 자연스러운 느린 모션: 긴 주기·작은 진폭·부드러운 easing ── */
+.blob{transform:translate(calc(var(--px,0)*var(--d)*.45px),calc(var(--py,0)*var(--d)*.45px));transition:transform 1.2s var(--ease)}
+.blob-1{animation:drift1 calc(52s*var(--slow)) ease-in-out infinite}
+.blob-2{animation:drift2 calc(64s*var(--slow)) ease-in-out infinite}
+.blob-3{animation:drift3 calc(46s*var(--slow)) ease-in-out infinite}
+.float{transform:translate(calc(var(--px,0)*var(--d)*.4px),calc(var(--py,0)*var(--d)*.4px));transition:transform 1.2s var(--ease)}
+.float > .ic{animation:bob calc(var(--t,9s)*var(--slow)) ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1.5deg)}}
+
+.bgcube{transform:translate(calc(var(--px,0)*var(--d)*.35px),calc(var(--py,0)*var(--d)*.35px));transition:transform 1.4s var(--ease)}
+.bgcube .box{animation:spin3d calc(var(--t,120s)*var(--slow)) linear infinite}
+.cube-wrap{transform:translate(calc(var(--px,0)*-8px),calc(var(--py,0)*-8px));transition:transform 1.4s var(--ease)}
+.core{animation:corepulse calc(5.5s*var(--slow)) ease-in-out infinite}
+@keyframes corepulse{0%,100%{transform:scale(.92);opacity:.85}50%{transform:scale(1.08);opacity:1}}
+.live i{animation:blink calc(3.2s*var(--slow)) ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
+.trace i{display:block;animation:pulse-run calc(var(--t,11s)*var(--slow)) cubic-bezier(.45,0,.3,1) infinite;animation-delay:calc(var(--dl,0s)*var(--slow))}
+
+/* ── 인쇄/PDF: 슬라이드 1장 = 1페이지(1600×900), 자동 모션·전환 제거 ── */
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{height:auto!important;overflow:visible!important;background:#fff!important}
+  .stage{position:static!important;overflow:visible!important;background:none!important;height:auto!important}
+  .blob,#net,.bgfx,.grid,.glow,.ring,.nav,.progress{display:none!important}
+  .deck{position:static!important;transform:none!important;width:1600px!important;height:auto!important;perspective:none!important}
+  .slide{position:relative!important;width:1600px!important;height:900px!important;opacity:1!important;visibility:visible!important;
+    transform:none!important;filter:none!important;transition:none!important;overflow:hidden!important;break-after:page;page-break-after:always;
+    background:radial-gradient(1200px 700px at 12% -10%,#FFFFFF 0%,transparent 60%),radial-gradient(900px 600px at 95% 110%,#D5E4FA 0%,transparent 60%),linear-gradient(180deg,var(--bg-2) 0%,var(--bg) 100%)!important}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  .rv,.h-reveal,.h-line,.holo::before,.stat .bar i,.prow .bar i,.glitch{animation:none!important}
+  .rv{opacity:1!important;transform:none!important;filter:none!important}
+  .h-reveal{clip-path:none!important;filter:none!important;text-shadow:none!important}
+  .h-line,.holo::before,.neon::after,.tilt::after,.chart-fallback{display:none!important}
+  .tilt{transform:none!important}
+  .card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,.9)!important}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+
+</style>
+<style data-editor>
+/* ── 인라인 편집 도구 (maro-ppt 편집 기능 이식) — [편집 기능 삭제] 로 통째로 빠진다 ── */
+.tools{display:flex;align-items:center;gap:6px}
+.tools-sep{width:1px;height:20px;background:var(--accent-soft);margin:0 2px}
+.edit-btn{height:28px;padding:0 11px;border-radius:999px;border:1px solid var(--accent-soft);background:#fff;color:var(--accent);font:700 12px/1 var(--font);cursor:pointer;white-space:nowrap;transition:background .3s,transform .3s}
+.edit-btn:hover{background:var(--accent-soft);transform:translateY(-1px)}
+.edit-btn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.edit-btn[hidden]{display:none}
+.edit-note{max-width:260px;font-size:11px;line-height:1.3;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px}
+.edit-note:empty{display:none}
+.editing [data-edit]{cursor:text;border-radius:4px}
+.editing [data-edit]:hover{box-shadow:inset 0 0 0 1px var(--accent-2)}
+.editing [data-edit]:focus{outline:2px solid var(--accent);outline-offset:3px;box-shadow:none}
+.editing .tilt{transform:none!important}
+@media print{.tools{display:none!important}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ── 3D 광택 아이콘 세트 (직접 제작, SVG) ───────────────── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gTile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8BBCF7"/><stop offset="1" stop-color="#1F5BE0"/></linearGradient>
+    <linearGradient id="gTileDeep" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B7BEA"/><stop offset="1" stop-color="#1240B8"/></linearGradient>
+    <linearGradient id="gTileWarm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6A98F"/><stop offset="1" stop-color="#E0582B"/></linearGradient>
+    <linearGradient id="gTileMint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7FD8B2"/><stop offset="1" stop-color="#1B8A5A"/></linearGradient>
+    <linearGradient id="gGloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#DCE9FB" stop-opacity=".9"/></linearGradient>
+    <symbol id="tile" viewBox="0 0 96 96"><rect x="10" y="10" width="76" height="76" rx="22" fill="url(#gTile)"/><rect x="16" y="15" width="64" height="30" rx="15" fill="url(#gGloss)"/></symbol>
+    <symbol id="ic-badge" viewBox="0 0 96 96"><use href="#tile"/><path d="M40 58 L36 82 L48 75 L60 82 L56 58 Z" fill="#fff" opacity=".9"/><circle cx="48" cy="44" r="19" fill="#fff"/><circle cx="48" cy="44" r="13" fill="none" stroke="#1F5BE0" stroke-width="2.5" opacity=".35"/><path d="M40 44 l6 6 l11 -12" fill="none" stroke="#1F5BE0" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-cap" viewBox="0 0 96 96"><use href="#tile"/><path d="M48 28 L78 41 L48 54 L18 41 Z" fill="#fff"/><path d="M31 47 V60 Q48 72 65 60 V47" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M78 41 V58" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="78" cy="61" r="3.5" fill="#fff"/></symbol>
+    <symbol id="ic-people" viewBox="0 0 96 96"><use href="#tile"/><circle cx="61" cy="40" r="8" fill="#fff" opacity=".7"/><path d="M48 70 Q48 52 61 52 Q75 52 75 70 Z" fill="#fff" opacity=".7"/><circle cx="40" cy="38" r="10" fill="#fff"/><path d="M22 72 Q22 52 40 52 Q58 52 58 72 Z" fill="#fff"/></symbol>
+    <symbol id="ic-target" viewBox="0 0 96 96"><rect x="10" y="10" width="76" height="76" rx="22" fill="url(#gTileWarm)"/><rect x="16" y="15" width="64" height="30" rx="15" fill="url(#gGloss)"/><circle cx="46" cy="50" r="22" fill="none" stroke="#fff" stroke-width="5"/><circle cx="46" cy="50" r="11" fill="none" stroke="#fff" stroke-width="5"/><circle cx="46" cy="50" r="3" fill="#fff"/><path d="M46 50 L68 28" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M68 28 V18 L78 22 L68 26 Z" fill="#fff"/></symbol>
+    <symbol id="ic-star" viewBox="0 0 96 96"><use href="#tile"/><path d="M48 24 L55 41 L74 43 L60 56 L64 74 L48 65 L32 74 L36 56 L22 43 L41 41 Z" fill="#fff"/></symbol>
+    <symbol id="ic-chart" viewBox="0 0 96 96"><use href="#tile"/><rect x="24" y="52" width="12" height="22" rx="4" fill="#fff" opacity=".8"/><rect x="42" y="40" width="12" height="34" rx="4" fill="#fff" opacity=".9"/><rect x="60" y="26" width="12" height="48" rx="4" fill="#fff"/></symbol>
+    <symbol id="ic-up" viewBox="0 0 96 96"><rect x="10" y="10" width="76" height="76" rx="22" fill="url(#gTileMint)"/><rect x="16" y="15" width="64" height="30" rx="15" fill="url(#gGloss)"/><path d="M26 64 L42 48 L52 58 L70 36" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 34 H72 V48" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-alert" viewBox="0 0 96 96"><rect x="10" y="10" width="76" height="76" rx="22" fill="url(#gTileWarm)"/><rect x="16" y="15" width="64" height="30" rx="15" fill="url(#gGloss)"/><path d="M48 24 L76 72 H20 Z" fill="#fff"/><path d="M48 42 V56" stroke="#E0582B" stroke-width="5" stroke-linecap="round"/><circle cx="48" cy="64" r="3" fill="#E0582B"/></symbol>
+    <symbol id="ic-cube" viewBox="0 0 96 96"><path d="M48 10 L84 30 L48 50 L12 30 Z" fill="#8BBCF7"/><path d="M12 30 L48 50 V90 L12 70 Z" fill="#1F5BE0"/><path d="M84 30 L48 50 V90 L84 70 Z" fill="#3B7BEA"/><path d="M48 10 L84 30 L48 50 Z" fill="#fff" opacity=".35"/></symbol>
+    <symbol id="ic-doc" viewBox="0 0 96 96"><rect x="24" y="14" width="48" height="68" rx="12" fill="url(#gGlass)" stroke="#fff" stroke-width="2"/><rect x="34" y="30" width="28" height="5" rx="2.5" fill="#7FB5F5"/><rect x="34" y="42" width="22" height="5" rx="2.5" fill="#1F5BE0" opacity=".8"/><rect x="34" y="54" width="26" height="5" rx="2.5" fill="#7FB5F5"/><circle cx="64" cy="66" r="9" fill="url(#gTileDeep)"/><path d="M60 66 l3 3 l6 -7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="stage" id="stage">
+  <div class="grid"></div>
+  <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="bgfx" id="bgfx"></div>
+
+  <div class="deck" id="deck">
+
+    <!-- ════════════════ SLIDE 1 : 전체 현황 ════════════════ -->
+    <section class="slide active" id="s1" aria-label="전체 현황 요약">
+      <header class="topbar rv" style="--i:0">
+        <div class="brand"><svg class="ic"><use href="#ic-cube"/></svg><span class="brand-t">학생역량 인증지수 현황</span> <small>2026 자율성과지표</small></div>
+        <div class="meta"><span class="live"><i></i>DATA · 2026.10. 정보공시 재학 기준</span><span class="num">01 <span>/ 02</span></span></div>
+      </header>
+
+      <div class="s1-body">
+        <div class="hero">
+          <!-- 발광 데이터 큐브 (직접 제작, CSS 3D) -->
+          <div class="cube-wrap" aria-hidden="true">
+            <div class="cube" data-cube="outer"><i class="f f1"></i><i class="f f2"></i><i class="f f3"></i><i class="f f4"></i><i class="f f5"></i><i class="f f6"></i></div>
+            <div class="cube inner" data-cube="inner"><i class="f f1"></i><i class="f f2"></i><i class="f f3"></i><i class="f f4"></i><i class="f f5"></i><i class="f f6"></i></div>
+            <span class="core"></span><span class="cube-shadow"></span>
+          </div>
+          <div class="float" style="left:-34px;bottom:214px;--d:18"><svg class="ic" style="width:80px;height:80px;--t:7.5s"><use href="#ic-doc"/></svg></div>
+
+          <div class="eyebrow rv" style="--i:1"><span class="pill"><i class="dot"></i>현황 보고</span><span class="pill ghost">10월 정보공시 재학 기준</span></div>
+          <h1 class="rv" style="--i:3"><span class="h-reveal">2026 학(부)과별<br><em>학생역량 인증지수</em> 현황 보고<i class="h-line"></i></span></h1>
+          <p class="rv" style="--i:4">재학생 <b>4,519명</b>의 핵심역량·전공역량 인증 실적을 집계한 전체 인증지수는 <b>22.57</b>입니다. 2026년 자율성과지표 목표 <b>32.1</b> 대비 <b>9.53p</b> 부족하며, 목표 달성을 위해서는 약 <b>431건</b>의 추가 인증이 필요합니다.</p>
+
+          <div class="card strong formula holo neon rv" style="--i:5">
+            <div class="ttl"><h3>학생역량 인증지수 산출 산식</h3><span>( A + B ) ÷ C × 100</span></div>
+            <div class="frow">
+              <div class="fterm"><svg class="ic"><use href="#ic-badge"/></svg><div class="k">핵심역량 인증자 A</div><div class="v">259<small>명</small></div></div>
+              <div class="fop">+</div>
+              <div class="fterm"><svg class="ic"><use href="#ic-cap"/></svg><div class="k">전공역량 인증자 B</div><div class="v">761<small>명</small></div></div>
+              <div class="fop">÷</div>
+              <div class="fterm"><svg class="ic"><use href="#ic-people"/></svg><div class="k">재학생 수 C</div><div class="v">4,519<small>명</small></div></div>
+              <div class="fop">×100</div>
+            </div>
+            <div class="fresult"><span class="eq">=</span><div class="big">22.57</div><div class="lab">학생역량 인증지수<span>(259 + 761) ÷ 4,519 × 100</span></div><div class="goal">2026 목표 <b>32.1</b></div></div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="kpis">
+            <div class="card tilt kpi holo neon rv" style="--i:2"><svg class="ic"><use href="#ic-people"/></svg><div class="k">재학생 수</div><div class="v"><span data-count="4519">4,519</span><small>명</small></div><div class="s">10월 정보공시 재학 기준 (2018~)</div></div>
+            <div class="card tilt kpi holo neon rv" style="--i:3"><svg class="ic"><use href="#ic-badge"/></svg><div class="k">핵심역량 인증률</div><div class="v"><span data-count="5.73" data-decimals="2">5.73</span><small>%</small></div><div class="s">인증자 259명</div></div>
+            <div class="card tilt kpi holo neon rv" style="--i:4"><svg class="ic"><use href="#ic-cap"/></svg><div class="k">전공역량 인증률</div><div class="v"><span data-count="16.84" data-decimals="2">16.84</span><small>%</small></div><div class="s">인증자 761명</div></div>
+            <div class="card tilt kpi holo neon rv" style="--i:5"><svg class="ic"><use href="#ic-star"/></svg><div class="k">비교과 인증률</div><div class="v"><span data-count="1.57" data-decimals="2">1.57</span><small>%</small></div><div class="s">인증자 71명 · 지수 산식 미반영</div></div>
+          </div>
+          <div class="trace rv" style="--i:6" aria-hidden="true"><b style="left:12%"></b><b style="left:37%"></b><b style="left:62%"></b><b style="left:87%"></b><i style="--t:11s"></i><i style="--t:14s;--dl:5s"></i></div>
+
+          <div class="card gauge-card holo neon lift rv" style="--i:6">
+            <div class="hd">
+              <h2>목표 <b>32.1</b> 대비 현재 <b>22.57</b>, 달성률 <b>70.3%</b></h2>
+              <span class="pill ghost">2026 자율성과지표 목표</span>
+            </div>
+            <div class="gauge-wrap">
+              <div class="gauge-box">
+                <canvas id="gauge" role="img" aria-label="목표 32.1 대비 현재 인증지수 22.57 (핵심역량 5.73, 전공역량 16.84, 남은 격차 9.53)"></canvas><p class="chart-fallback" hidden>차트를 불러오지 못했습니다. 네트워크 연결 후 새로고침해 주세요.</p>
+                <div class="gauge-center">
+                  <div class="big"><span data-count="22.57" data-decimals="2">22.57</span></div>
+                  <div class="lbl">학생역량 인증지수 · 목표 <b>32.1</b></div>
+                </div>
+              </div>
+              <div class="legend">
+                <span><i style="background:#1F5BE0"></i>핵심역량 인증률 5.73%</span>
+                <span><i style="background:#7FB5F5"></i>전공역량 인증률 16.84%</span>
+                <span><i style="background:#D9E1EC"></i>목표까지 남은 격차 9.53p</span>
+              </div>
+            </div>
+            <div class="stats">
+              <div class="stat"><div class="k">목표 달성률 <span>22.57 ÷ 32.1</span></div><div class="v"><span data-count="70.3" data-decimals="1">70.3</span><small>%</small></div><div class="bar"><i style="--w:70.3%"></i></div></div>
+              <div class="stat"><div class="k">목표 격차 <span>32.1 − 22.57</span></div><div class="v"><span data-count="9.53" data-decimals="2">9.53</span><small>p</small></div><div class="bar"><i class="t" style="--w:29.7%"></i></div></div>
+              <div class="stat"><div class="k">추가 필요 인증 <span>1,451 − 1,020건</span></div><div class="v">약 <span data-count="431">431</span><small>건</small></div><div class="bar"><i class="t" style="--w:29.7%"></i></div></div>
+            </div>
+          </div>
+
+          <div class="chips-wrap">
+          <div class="chips">
+            <div class="card tilt chip good holo neon rv" style="--i:7"><div class="n">7<small>개</small></div><div class="t">목표 달성 학과<span>재학생 993명 · 전체 재학생의 22.0%</span></div></div>
+            <div class="card tilt chip holo neon rv" style="--i:8"><div class="n">2<small>개</small></div><div class="t">평균 이상 · 목표 미달<span>재학생 354명 · 전체 재학생의 7.8%</span></div></div>
+            <div class="card tilt chip warn holo neon rv" style="--i:9"><div class="n">15<small>개</small></div><div class="t">평균 이하 학과<span>재학생 3,156명 · 전체 재학생의 69.8%</span></div></div>
+            <div class="card tilt chip mute holo neon rv" style="--i:10"><div class="n">3<small>개</small></div><div class="t">인증 실적 없음<span>자율전공학부 16명 · 전체 재학생의 0.4%</span></div></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="foot rv" style="--i:8">
+        <span>자료: 2026년 학(부)과별 학생역량 인증지수 현황(예시 데이터)</span>
+        <span class="foot-cap">※ 칩의 비율(%)은 역량 비중이 아니라 전체 재학생 4,519명 대비 해당 학과 재학생 비중입니다.</span>
+      </footer>
+    </section>
+
+    <!-- ════════════════ SLIDE 2 : 학(부)과별 현황 ════════════════ -->
+    <section class="slide" id="s2" aria-label="학(부)과별 현황">
+      <header class="topbar rv" style="--i:0">
+        <div class="brand"><svg class="ic"><use href="#ic-cube"/></svg><span class="brand-t">학생역량 인증지수 현황</span> <small>2026 자율성과지표</small></div>
+        <div class="meta"><span class="live"><i></i>DATA · 2026.10. 정보공시 재학 기준</span><span class="num">02 <span>/ 02</span></span></div>
+      </header>
+
+      <div class="s2-head">
+        <div>
+          <div class="s2-title"><h1 class="rv" style="--i:2"><span class="h-reveal">학(부)과별 학생역량 인증지수 <em>낮은 순</em> 비교<i class="h-line"></i></span></h1><span class="pill rv" style="--i:1"><i class="dot"></i>학(부)과별 현황</span></div>
+          <p class="rv" style="--i:3">실적이 있는 <b>24개 학(부)과</b> 기준 · 전체 평균 <b>22.57</b> · 목표 <b>32.1</b></p>
+        </div>
+        <div class="s2-cube rv" style="--i:3" aria-hidden="true">
+          <div class="cube" data-cube="outer"><i class="f f1"></i><i class="f f2"></i><i class="f f3"></i><i class="f f4"></i><i class="f f5"></i><i class="f f6"></i></div>
+          <div class="cube inner" data-cube="inner"><i class="f f1"></i><i class="f f2"></i><i class="f f3"></i><i class="f f4"></i><i class="f f5"></i><i class="f f6"></i></div>
+          <span class="core"></span>
+        </div>
+      </div>
+
+      <div class="s2-body">
+        <div class="card chart-card holo neon lift rv" style="--i:4">
+          <div class="hd">
+            <h2>핵심역량 + 전공역량 인증률 = 학생역량 인증지수<span>단위: %, 막대 끝 숫자는 인증지수</span></h2>
+          </div>
+          <div class="chart-legend">
+            <span><i style="background:#1F5BE0"></i>핵심역량 인증률</span>
+            <span><i style="background:#7FB5F5"></i>전공역량 인증률</span>
+            <span><i class="line"></i>전체 평균 22.57</span>
+            <span><i class="line t"></i>목표 32.1</span>
+            <span><i class="band"></i>평균 이하 영역</span>
+            <span class="sw">굵은 학과명 = 우선 관리 대상</span>
+          </div>
+          <div class="chart-wrap" id="chartWrap"><canvas id="bars" role="img" aria-label="학(부)과별 핵심역량·전공역량 인증률 누적 가로 막대 차트"></canvas><p class="chart-fallback" hidden>차트를 불러오지 못했습니다. 네트워크 연결 후 새로고침하거나 "표로 보기"를 눌러 주세요.</p></div>
+        </div>
+
+        <aside class="side">
+          <div class="card insight tilt holo neon rv" style="--i:5">
+            <h2><svg class="ic" style="width:24px;height:24px"><use href="#ic-chart"/></svg>핵심 포인트</h2>
+            <ol>
+              <li><svg class="ic"><use href="#ic-up"/></svg><div><b>목표 달성 <em>7개 학과</em>, 특정 계열 집중</b><p>W학과 <strong>91.46</strong> · V학과 <strong>76.44</strong> · U학과 <strong>57.36</strong> 등. 전공역량 인증률이 지수를 견인했습니다.</p></div></li>
+              <li><svg class="ic"><use href="#ic-alert"/></svg><div><b>평균 이하 <em>15개 학과</em>, 재학생의 69.8%</b><p>실적 학과 24개 중 <strong>62.5%</strong>가 평균(22.57)에 미달하며, 대부분 전공역량 인증률이 10% 미만입니다.</p></div></li>
+              <li><svg class="ic"><use href="#ic-target"/></svg><div><b>대규모 학과 <em>7개</em>가 지수 개선의 핵심</b><p>200명 이상 학과 중 S학과를 뺀 7개(2,241명·<strong>49.6%</strong>)가 모두 평균 이하(4.02~16.95). 이들이 평균만 달성해도 전체 지수는 약 <strong>29.0</strong>으로 오릅니다.</p></div></li>
+            </ol>
+          </div>
+
+          <div class="card priority tilt holo neon rv" style="--i:6">
+            <h2>우선 관리 대상 학과 <span>재학생 200명 이상 · 평균 이하</span></h2>
+            <ul class="plist" id="plist">
+              <li class="prow hd"><span class="nm">학(부)과</span><span class="st">재학생</span><span>지수 (점선: 평균 22.57, 끝: 목표 32.1)</span><span class="ix">지수</span></li>
+            </ul>
+            <p class="pnote"><b>참고</b> 비교과 인증(71명)은 지수 산식 미반영 · 자율전공학부 3개(16명)는 인증 실적 없음</p>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="foot rv" style="--i:7">
+        <span>자료: 동일 · 학(부)과명은 예시 데이터(실제 자료로 교체)</span>
+      </footer>
+    </section>
+  </div>
+</div>
+
+<div class="glow" id="glow"></div>
+<div class="ring" id="ring"></div>
+
+<nav class="nav" aria-label="슬라이드 이동">
+  <button class="navbtn" id="prev" type="button" aria-label="이전 슬라이드"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div class="dots" id="dots"></div>
+  <button class="navbtn" id="next" type="button" aria-label="다음 슬라이드"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  <span class="navhint"><kbd>←</kbd><kbd>→</kbd> 이동 · <kbd>F</kbd> 전체 화면</span><button class="navbtn" id="fs" type="button" aria-label="전체 화면"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  <span class="tools" data-editor>
+    <i class="tools-sep"></i>
+    <button id="edit" class="edit-btn" type="button" title="글자를 클릭해 직접 고치기 (E)">편집</button>
+    <button id="save" class="edit-btn" type="button" hidden title="이 HTML 파일에 덮어쓰기 (Ctrl+S)">저장</button>
+    <button id="reset" class="edit-btn" type="button" hidden title="고친 내용을 모두 되돌리기">원래대로</button>
+    <button id="final" class="edit-btn" type="button" hidden title="편집 기능을 뺀 발표용 HTML 로 따로 저장">편집 기능 삭제</button>
+    <span id="note" class="edit-note"></span>
+  </span>
+</nav>
+<div class="progress"><i id="prog"></i></div>
+
+
+<script>
+/* ═══════════════════════ DATA (nocur.xlsx) ═══════════════════════ */
+const DEPTS = [
+  {name:'A학과',     n:249, a:6,  b:4,   e:1,  idx:4.02},
+  {name:'B학과',           n:455, a:14, b:5, e:2, idx:4.18},
+  {name:'C학과', n:137, a:2,  b:4,   e:0,  idx:4.38},
+  {name:'D학과',       n:120, a:6,  b:0,   e:0,  idx:5.00},
+  {name:'E학과',   n:86,  a:2,  b:4,   e:0,  idx:6.98},
+  {name:'F학과',           n:224, a:10, b:7, e:1, idx:7.59},
+  {name:'G학부',           n:248, a:9, b:12, e:1, idx:8.47},
+  {name:'H학과',       n:120, a:2,  b:9,   e:0,  idx:9.17},
+  {name:'I학과',       n:184, a:5, b:16, e:0, idx:11.41},
+  {name:'J학과',       n:422, a:22, b:30, e:5, idx:12.32},
+  {name:'K학과',     n:289, a:20, b:18, e:5, idx:13.15},
+  {name:'L학부',           n:98,  a:8,  b:5,   e:4,  idx:13.27},
+  {name:'M학과',       n:354, a:16, b:44,  e:4,  idx:16.95},
+  {name:'N학과',             n:81, a:3, b:11, e:2, idx:17.28},
+  {name:'O학과', n:89,  a:10, b:9,   e:6,  idx:21.35},
+  {name:'P학과',     n:161, a:10, b:40,  e:3,  idx:31.06},
+  {name:'Q학과',     n:193, a:6,  b:55,  e:2,  idx:31.61},
+  {name:'R학과',       n:90,  a:0,  b:31,  e:0,  idx:34.44},
+  {name:'S학과', n:284, a:17, b:93, e:6,  idx:38.73},
+  {name:'T학과',   n:108, a:3, b:54, e:0, idx:52.78},
+  {name:'U학과',       n:129, a:2,  b:72,  e:2,  idx:57.36},
+  {name:'V학과',         n:174, a:46, b:87,  e:17, idx:76.44},
+  {name:'W학과',         n:199, a:39, b:143, e:10, idx:91.46},
+  {name:'X학부',       n:9,   a:1,  b:8,   e:0,  idx:100},
+];
+const TOTAL = {n:4519, a:259, b:761, e:71, idx:22.57, core:5.73, major:16.84, target:32.1};
+const PRIORITY = ['B학과','J학과','M학과','K학과','A학과','G학부','F학과'];
+
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const C = {ink:css('--ink'), ink2:css('--ink-2'), ink3:css('--ink-3'), accent:css('--accent'), accentDeep:css('--accent-deep'),
+           accent2:css('--accent-2'), target:css('--target'), gap:css('--gap'), font:css('--font')};
+const reduced = false;   /* OS의 '애니메이션 효과 끄기' 설정과 무관하게 디자인된 모션을 재생한다 (끄려면 true) */
+const SLOW = parseFloat(css('--slow'))||1;   /* CSS --slow 와 같은 배속을 JS 모션에도 적용 */
+const fmt = (v, d=0) => v.toLocaleString('ko-KR', {minimumFractionDigits:d, maximumFractionDigits:d});
+
+/* ═══════════════════════ DECK ═══════════════════════ */
+const deck = document.getElementById('deck'), stage = document.getElementById('stage');
+const slides = [...document.querySelectorAll('.slide')];
+const dotsEl = document.getElementById('dots'), prog = document.getElementById('prog');
+let cur = 0, lock = 0;
+function fit(){ deck.style.setProperty('--s', Math.min(innerWidth/1600, innerHeight/900)); }
+addEventListener('resize', fit); fit();
+slides.forEach((s,i)=>{ const b=document.createElement('button'); b.className='dot'+(i===0?' on':''); b.type='button';
+  b.setAttribute('aria-label',`${i+1}번 슬라이드`); b.addEventListener('click',()=>go(i)); dotsEl.appendChild(b); });
+function go(n){
+  n = Math.max(0, Math.min(slides.length-1, n)); if(n===cur) return;
+  const now = performance.now(); if(now-lock < 850) return; lock = now;
+  const prev = slides[cur], next = slides[n];
+  prev.classList.remove('active'); prev.classList.add('leaving'); setTimeout(()=>prev.classList.remove('leaving'), 900);
+  next.classList.add('active'); cur = n;
+  [...dotsEl.children].forEach((d,i)=>d.classList.toggle('on', i===n));
+  prog.style.setProperty('--p', ((n+1)/slides.length*100)+'%');
+  document.dispatchEvent(new CustomEvent('deck:slide',{detail:{i:n,last:n===slides.length-1}}));
+  try{ history.replaceState(null,'','#s'+(n+1)); }catch(e){}
+  burst(); activate(next);
+}
+function activate(slide){
+  slide.querySelectorAll('[data-count]').forEach(countUp);
+  replayCharts(slide);
+}
+// 디지털 카운터: 숫자 스크램블 → 정착
+function countUp(el){
+  const end = parseFloat(el.dataset.count), d = +(el.dataset.decimals||0);
+  if(reduced){ el.textContent = fmt(end,d); return; }
+  const t0 = performance.now(), dur = 1800; el.classList.add('glitch');
+  (function step(t){ if(window.__printing){ el.textContent=fmt(end,d); el.classList.remove('glitch'); return; } const p=Math.min(1,(t-t0)/dur);
+    if(p<.2){ el.textContent = fmt(Math.random()*end*1.3, d); }
+    else { const q=(p-.2)/.8, e=1-Math.pow(1-q,3); el.textContent = fmt(end*e,d); if(q>.6) el.classList.remove('glitch'); }
+    if(p<1) requestAnimationFrame(step); else { el.textContent = fmt(end,d); el.classList.remove('glitch'); } })(t0);
+}
+// 인쇄/PDF: 카운트업과 차트 애니메이션을 즉시 최종값으로 (Ctrl+P, --print-to-pdf 모두)
+function finishCounts(){
+  window.__printing = true;
+  document.querySelectorAll('[data-count]').forEach(el=>{ el.textContent = fmt(parseFloat(el.dataset.count), +(el.dataset.decimals||0)); el.classList.remove('glitch'); });
+  [gauge, bars].forEach(c=>{ if(c){ try{ c.stop(); c.update('none'); }catch(e){} } });
+}
+addEventListener('beforeprint', finishCounts);
+window.__finishCounts = finishCounts;
+document.getElementById('prev').addEventListener('click',()=>go(cur-1));
+document.getElementById('next').addEventListener('click',()=>go(cur+1));
+document.getElementById('fs').addEventListener('click',()=>{ const d=document.documentElement;
+  if(document.fullscreenElement){ document.exitFullscreen?.(); } else { d.requestFullscreen?.().catch?.(()=>{}); } });
+addEventListener('keydown', e=>{
+  if(e.target.isContentEditable || e.target.closest('button,input')) return;
+  if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); go(cur+1); }
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); go(cur-1); }
+  else if(e.key==='Home'){ go(0); } else if(e.key==='End'){ go(slides.length-1); }
+  else if(e.key.toLowerCase()==='f'){ document.getElementById('fs').click(); }
+});
+let wheelAt = 0;
+addEventListener('wheel', e=>{ if(document.body.classList.contains('editing') || e.target.closest('.scrollable')) return; if(Math.abs(e.deltaY)<18) return;
+  const now=performance.now(); if(now-wheelAt<900) return; wheelAt=now; go(cur+(e.deltaY>0?1:-1)); }, {passive:true});
+let tx=null; addEventListener('touchstart', e=>{ tx=e.touches[0].clientX; }, {passive:true});
+addEventListener('touchend', e=>{ if(tx===null || document.body.classList.contains('editing')) return; const dx=e.changedTouches[0].clientX-tx; tx=null; if(Math.abs(dx)>50) go(cur+(dx<0?1:-1)); });
+
+/* ═══════════════════════ EFFECTS ═══════════════════════ */
+// 포인터 상태 (패럴랙스·글로우·링·네트워크 공용)
+const glow = document.getElementById('glow'), ring = document.getElementById('ring');
+let tgt={x:0,y:0}, pos={x:0,y:0}, gt={x:innerWidth/2,y:innerHeight/2}, gp={x:innerWidth/2,y:innerHeight/2}, rp={x:innerWidth/2,y:innerHeight/2}, moved=false;
+addEventListener('pointermove', e=>{ tgt={x:e.clientX/innerWidth*2-1, y:e.clientY/innerHeight*2-1}; gt={x:e.clientX,y:e.clientY};
+  if(!moved){ moved=true; glow.classList.add('on'); ring.classList.add('on'); }
+  ring.classList.toggle('hot', !!e.target.closest('.card,button,.fterm,.stat,.prow,li'));
+});
+document.addEventListener('pointerleave', ()=>{ tgt={x:0,y:0}; glow.classList.remove('on'); ring.classList.remove('on'); moved=false; });
+
+// 발광 데이터 큐브 회전 (커서 추종)
+const outers = [...document.querySelectorAll('[data-cube="outer"]')], inners = [...document.querySelectorAll('[data-cube="inner"]')];
+let ang = 38;
+
+// 배경 부유 큐브 생성
+(function makeBgCubes(){
+  const bg = document.getElementById('bgfx');
+  const spec = [{s:70,x:'8%',y:'62%',d:30,t:'120s'},{s:46,x:'30%',y:'12%',d:-20,t:'150s'},{s:92,x:'86%',y:'14%',d:38,t:'135s'},{s:38,x:'60%',y:'84%',d:-28,t:'170s'},{s:56,x:'47%',y:'44%',d:16,t:'110s'}];
+  spec.forEach(c=>{ const w=document.createElement('div'); w.className='bgcube'; w.style.cssText=`left:${c.x};top:${c.y};width:${c.s}px;height:${c.s}px;--d:${c.d}`;
+    const box=document.createElement('div'); box.className='box'; box.style.setProperty('--t',c.t);
+    const h=c.s/2; const tf=[`translateZ(${h}px)`,`rotateY(180deg) translateZ(${h}px)`,`rotateY(90deg) translateZ(${h}px)`,`rotateY(-90deg) translateZ(${h}px)`,`rotateX(90deg) translateZ(${h}px)`,`rotateX(-90deg) translateZ(${h}px)`];
+    tf.forEach(t=>{ const f=document.createElement('i'); f.className='f'; f.style.transform=t; box.appendChild(f); });
+    w.appendChild(box); bg.appendChild(w); });
+  // 히어로 큐브 면 배치
+  document.querySelectorAll('.cube').forEach(cb=>{ const size = cb.classList.contains('inner') ? (cb.closest('.s2-cube') ? 11 : 35) : (cb.closest('.s2-cube') ? 30 : 75);
+    [...cb.children].forEach((f,i)=>{ f.style.transform = [`translateZ(${size}px)`,`rotateY(180deg) translateZ(${size}px)`,`rotateY(90deg) translateZ(${size}px)`,`rotateY(-90deg) translateZ(${size}px)`,`rotateX(90deg) translateZ(${size}px)`,`rotateX(-90deg) translateZ(${size}px)`][i]; }); });
+})();
+
+// 회로망 네트워크 파티클 (canvas)
+const net = document.getElementById('net'), nctx = net.getContext('2d');
+let W=0, H=0, nodes=[], pulses=[];
+function nresize(){ const DPR=Math.min(2,devicePixelRatio||1); W=innerWidth; H=innerHeight; net.width=W*DPR; net.height=H*DPR; net.style.width=W+'px'; net.style.height=H+'px'; nctx.setTransform(DPR,0,0,DPR,0,0);
+  const count = Math.min(150, Math.round(W*H/15000));
+  nodes = Array.from({length:count},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.07/SLOW,vy:(Math.random()-.5)*.07/SLOW,r:1.1+Math.random()*1.7})); pulses=[]; }
+addEventListener('resize', nresize); nresize();
+function ndraw(){
+  nctx.clearRect(0,0,W,H); const L = 128, R = 230;
+  for(const n of nodes){ n.x+=n.vx; n.y+=n.vy; if(n.x<-30)n.x=W+30; else if(n.x>W+30)n.x=-30; if(n.y<-30)n.y=H+30; else if(n.y>H+30)n.y=-30;
+    const dm=Math.hypot(n.x-gp.x,n.y-gp.y); n.near = moved ? Math.max(0,1-dm/R) : 0; n.dx = n.x+(gp.x-n.x)*n.near*.1; n.dy = n.y+(gp.y-n.y)*n.near*.1; }
+  const edges=[];
+  for(let i=0;i<nodes.length;i++){ const a=nodes[i]; for(let j=i+1;j<nodes.length;j++){ const b=nodes[j]; const dx=a.dx-b.dx, dy=a.dy-b.dy, d2=dx*dx+dy*dy;
+    if(d2<L*L){ const t=1-Math.sqrt(d2)/L, near=Math.max(a.near,b.near); edges.push([a,b]);
+      nctx.strokeStyle = near>0 ? `rgba(47,216,255,${(.16+.55*near)*t})` : `rgba(31,91,224,${.16*t})`; nctx.lineWidth = .8+near*.8;
+      nctx.beginPath(); nctx.moveTo(a.dx,a.dy); nctx.lineTo(b.dx,b.dy); nctx.stroke(); } } }
+  for(const n of nodes){ nctx.fillStyle = n.near>0 ? `rgba(47,216,255,${.4+.6*n.near})` : 'rgba(31,91,224,.34)'; nctx.beginPath(); nctx.arc(n.dx,n.dy,n.r+n.near*1.6,0,Math.PI*2); nctx.fill(); }
+  // 데이터 펄스: 엣지를 따라 이동하는 빛
+  if(edges.length && pulses.length<4 && Math.random()<.02/SLOW){ const e=edges[Math.floor(Math.random()*edges.length)]; pulses.push({a:e[0],b:e[1],t:0,v:(.004+Math.random()*.004)/SLOW}); }
+  nctx.save(); nctx.shadowColor='rgba(47,216,255,.9)'; nctx.shadowBlur=12;
+  pulses = pulses.filter(p=>{ p.t+=p.v; if(p.t>1) return false; const x=p.a.dx+(p.b.dx-p.a.dx)*p.t, y=p.a.dy+(p.b.dy-p.a.dy)*p.t;
+    nctx.fillStyle='rgba(255,255,255,.95)'; nctx.beginPath(); nctx.arc(x,y,2.2,0,Math.PI*2); nctx.fill();
+    nctx.fillStyle='rgba(47,216,255,.9)'; nctx.beginPath(); nctx.arc(x,y,3.6,0,Math.PI*2); nctx.fill(); return true; });
+  nctx.restore();
+}
+// 전환 시 네트워크 버스트
+function burst(){ if(reduced) return; for(let k=0;k<6;k++){ const a=nodes[Math.floor(Math.random()*nodes.length)], b=nodes[Math.floor(Math.random()*nodes.length)]; if(a&&b&&a!==b) pulses.push({a,b,t:0,v:(.008+Math.random()*.006)/SLOW}); } }
+
+(function loop(){
+  if(!reduced){
+    pos.x += (tgt.x-pos.x)*(.035/SLOW); pos.y += (tgt.y-pos.y)*(.035/SLOW);
+    const sx=pos.x.toFixed(3), sy=pos.y.toFixed(3);
+    deck.style.setProperty('--px', sx); deck.style.setProperty('--py', sy); stage.style.setProperty('--px', sx); stage.style.setProperty('--py', sy);
+    gp.x += (gt.x-gp.x)*.12; gp.y += (gt.y-gp.y)*.12; glow.style.transform = `translate(${gp.x}px, ${gp.y}px)`;
+    rp.x += (gt.x-rp.x)*.35; rp.y += (gt.y-rp.y)*.35; ring.style.transform = `translate(${rp.x}px, ${rp.y}px)`;
+    ang += .05/SLOW;   /* --slow:0.4 기준 약 48초에 한 바퀴 — 커서를 따라 살짝 기운다 */
+    outers.forEach(c=>{ c.style.transform = `rotateX(${-22 + pos.y*-6}deg) rotateY(${ang + pos.x*10}deg)`; });
+    inners.forEach(c=>{ c.style.transform = `rotateX(${ang*.8}deg) rotateY(${-ang*.6}deg)`; });
+    ndraw();
+  } else if(!nodes.drawn){ ndraw(); nodes.drawn = true; }
+  requestAnimationFrame(loop);
+})();
+
+// 글래스 카드 3D 틸트
+document.querySelectorAll('.tilt').forEach(card=>{
+  card.addEventListener('pointermove', e=>{ if(reduced) return; const r=card.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+    card.style.setProperty('--rx', ((.5-py)*7).toFixed(2)+'deg'); card.style.setProperty('--ry', ((px-.5)*9).toFixed(2)+'deg'); card.classList.add('is-tilting'); });
+  card.addEventListener('pointerleave', ()=>{ card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg'); card.classList.remove('is-tilting'); });
+});
+
+/* ═══════════════════════ LISTS (Chart.js 비의존: 목록·표는 항상 렌더) ═══════════════════════ */
+const pri = new Set(PRIORITY);
+let gauge = null, bars = null;
+{
+  const plist = document.getElementById('plist');
+  PRIORITY.map(n=>DEPTS.find(d=>d.name===n)).sort((p,q)=>q.n-p.n).forEach((d,j)=>{
+    const li = document.createElement('li'); li.className='prow'; li.dataset.dept=d.name;
+    li.innerHTML = `<span class="nm">${d.name}</span><span class="st">${fmt(d.n)}명</span><span class="bar"><i style="--w:${(d.idx/TOTAL.target*100).toFixed(1)}%;--j:${j}"></i></span><span class="ix">${d.idx.toFixed(2)}</span>`;
+    const i = DEPTS.indexOf(d);
+    li.addEventListener('mouseenter', ()=>{ if(!bars) return; const els=[{datasetIndex:0,index:i},{datasetIndex:1,index:i}]; const el=bars.getDatasetMeta(1).data[i];
+      bars.setActiveElements(els); bars.tooltip.setActiveElements(els,{x:el.x,y:el.y}); bars.update(); });
+    li.addEventListener('mouseleave', ()=>{ if(!bars) return; bars.setActiveElements([]); bars.tooltip.setActiveElements([],{x:0,y:0}); bars.update(); });
+    plist.appendChild(li);
+  });
+
+}
+
+/* ═══════════════════════ CHARTS (Chart.js 4.5) ═══════════════════════ */
+function replayCharts(slide){
+  if(slide.id==='s1' && gauge){ gauge.reset(); gauge.update(); }
+  if(slide.id==='s2' && bars){ bars.reset(); bars.update(); }
+}
+function initCharts(){
+  Chart.defaults.font.family = C.font; Chart.defaults.font.size = 12; Chart.defaults.color = C.ink2;
+  const tooltipStyle = { backgroundColor:'rgba(22,36,58,.94)', titleColor:'#fff', bodyColor:'#DCE9FB', footerColor:'#fff',
+    padding:12, cornerRadius:12, boxPadding:5, titleFont:{weight:'800',size:13}, bodyFont:{size:12}, footerFont:{weight:'700',size:12},
+    displayColors:true, usePointStyle:true, caretSize:6, borderColor:'rgba(47,216,255,.6)', borderWidth:1 };
+
+  // ── 슬라이드 1: 반원 도넛 게이지 (Chart.js samples › Other charts › Doughnut)
+  gauge = new Chart(document.getElementById('gauge'), {
+    type:'doughnut',
+    data:{ labels:['핵심역량 인증률','전공역량 인증률','목표까지 남은 격차'],
+      datasets:[{ data:[TOTAL.core, TOTAL.major, +(TOTAL.target-TOTAL.idx).toFixed(2)],
+        backgroundColor:[C.accent, C.accent2, C.gap], hoverBackgroundColor:[C.accentDeep,'#5EA3F0','#C6D1E1'],
+        borderWidth:0, spacing:3, borderRadius:7, hoverOffset:10 }] },
+    options:{ responsive:true, maintainAspectRatio:false, rotation:-90, circumference:180, cutout:'68%',
+      layout:{padding:{top:6,left:10,right:10,bottom:0}},
+      plugins:{ legend:{display:false},
+        tooltip:{ ...tooltipStyle, callbacks:{ label:c=>` ${c.label}  ${c.parsed.toFixed(2)}${c.dataIndex<2?'%':'p'}`,
+          afterLabel:c=> c.dataIndex===0 ? `  인증자 ${TOTAL.a}명 / ${fmt(TOTAL.n)}명` : c.dataIndex===1 ? `  인증자 ${TOTAL.b}명 / ${fmt(TOTAL.n)}명` : `  추가 필요 인증 약 431건` } } },
+      animation:{ duration: reduced?0:1600, easing:'easeOutQuart', animateRotate:true } }
+  });
+
+  // ── 슬라이드 2: 누적 가로 막대 (Chart.js samples › Bar › Stacked + Horizontal)
+  const coreRate  = DEPTS.map(d => +(d.a/d.n*100).toFixed(2));
+  const majorRate = DEPTS.map(d => +(d.b/d.n*100).toFixed(2));
+  const roundRect = (ctx,x,y,w,h,r)=>{ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
+  const band = { id:'band', beforeDatasetsDraw(c){ const {ctx, chartArea:{top,bottom,left}, scales:{x}} = c;
+    const xa = x.getPixelForValue(TOTAL.idx); ctx.save(); ctx.fillStyle='rgba(31,91,224,.055)'; ctx.fillRect(left, top, xa-left, bottom-top); ctx.restore(); } };
+  const refLines = { id:'refLines', afterDatasetsDraw(c){ const {ctx, chartArea:{top,bottom}, scales:{x}} = c;
+    const draw = (v,color,label)=>{ const px = x.getPixelForValue(v); ctx.save();
+      ctx.setLineDash([5,4]); ctx.lineWidth=1.6; ctx.strokeStyle=color; ctx.beginPath(); ctx.moveTo(px, top-4); ctx.lineTo(px, bottom); ctx.stroke();
+      ctx.setLineDash([]); ctx.font=`800 11px ${C.font}`; const w = ctx.measureText(label).width+16;
+      ctx.fillStyle=color; roundRect(ctx, px-w/2, top-26, w, 19, 9.5); ctx.fill();
+      ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(label, px, top-16.5); ctx.restore(); };
+    draw(TOTAL.idx, C.ink, `평균 ${TOTAL.idx}`); draw(TOTAL.target, C.target, `목표 ${TOTAL.target}`); } };
+  const endLabels = { id:'endLabels', afterDatasetsDraw(c){ const {ctx} = c; const meta = c.getDatasetMeta(1); const act = c.getActiveElements().map(a=>a.index);
+    ctx.save(); ctx.textBaseline='middle'; ctx.textAlign='left';
+    meta.data.forEach((el,i)=>{ const on = act.includes(i); ctx.font=`${on?'800':'700'} ${on?12:11}px ${C.font}`; ctx.fillStyle = on ? C.accent : C.ink2;
+      if(on){ ctx.shadowColor='rgba(47,216,255,.9)'; ctx.shadowBlur=10; } else { ctx.shadowBlur=0; }
+      ctx.fillText(DEPTS[i].idx.toFixed(2), el.x+8, el.y); }); ctx.restore(); } };
+
+  bars = new Chart(document.getElementById('bars'), {
+    type:'bar',
+    data:{ labels: DEPTS.map(d=>d.name), datasets:[
+      { label:'핵심역량 인증률', data:coreRate, backgroundColor:C.accent, hoverBackgroundColor:C.accentDeep, borderWidth:0,
+        borderRadius:{topLeft:4,bottomLeft:4}, borderSkipped:false, maxBarThickness:15, categoryPercentage:.8, barPercentage:1 },
+      { label:'전공역량 인증률', data:majorRate, backgroundColor:C.accent2, hoverBackgroundColor:'#5EA3F0',
+        borderWidth:{left:2}, borderColor:'#fff', borderRadius:{topRight:4,bottomRight:4}, borderSkipped:false, maxBarThickness:15, categoryPercentage:.8, barPercentage:1 } ] },
+    options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:28,right:52,left:0,bottom:0}},
+      interaction:{mode:'index', axis:'y', intersect:false},
+      scales:{
+        x:{ stacked:true, min:0, max:100, grid:{color:'rgba(22,36,58,.07)', drawTicks:false}, border:{display:false},
+            ticks:{ callback:v=>v+'%', color:C.ink3, font:{size:11}, padding:6, stepSize:20 } },
+        y:{ stacked:true, grid:{display:false}, border:{display:false},
+            ticks:{ padding:8, color:C.ink, font: ctx => ({ size:12, weight: pri.has(DEPTS[ctx.index]?.name) ? '800' : '400' }) } } },
+      plugins:{ legend:{display:false},
+        tooltip:{ ...tooltipStyle, callbacks:{
+          title: items => DEPTS[items[0].dataIndex].full || DEPTS[items[0].dataIndex].name,
+          label: c => { const d=DEPTS[c.dataIndex]; const cnt = c.datasetIndex===0 ? d.a : d.b; return ` ${c.dataset.label}  ${c.parsed.x.toFixed(2)}%  (${cnt}명)`; },
+          footer: items => { const d=DEPTS[items[0].dataIndex]; const diff = d.idx-TOTAL.idx;
+            return [`학생역량 인증지수 ${d.idx.toFixed(2)}  (평균 대비 ${diff>=0?'+':''}${diff.toFixed(2)})`, `재학생 ${fmt(d.n)}명 · 비교과 인증 ${d.e}명`]; } } } },
+      animation:{ duration: reduced?0:1300, easing:'easeOutQuart',
+        delay: ctx => (!reduced && ctx.type==='data' && ctx.mode==='default') ? ctx.dataIndex*28 : 0 } },
+    plugins:[band, refLines, endLabels]
+  });
+  replayCharts(slides[cur]);
+}
+// cdnjs 로드 실패 시 jsdelivr로 대체 로드, 둘 다 실패하면 안내 문구 표시
+function ensureChart(cb){
+  if(window.Chart) return cb();
+  const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js';
+  s.onload = cb; s.onerror = ()=>{ document.querySelectorAll('.chart-fallback').forEach(e=>{ e.hidden = false; }); };
+  document.head.appendChild(s);
+}
+
+/* ═══════════════════════ INIT ═══════════════════════ */
+(function init(){
+  const m = /^#s(\d)$/.exec(location.hash); const n = m ? Math.min(slides.length, Math.max(1, +m[1]))-1 : 0;
+  if(n!==0){ slides[0].classList.remove('active'); slides[n].classList.add('active'); cur=n; [...dotsEl.children].forEach((d,i)=>d.classList.toggle('on', i===n)); }
+  prog.style.setProperty('--p', ((cur+1)/slides.length*100)+'%');
+  activate(slides[cur]);
+  ensureChart(initCharts);
+  document.dispatchEvent(new CustomEvent('deck:slide',{detail:{i:cur,last:cur===slides.length-1}}));
+})();
+</script>
+<script data-editor>
+/* 인라인 편집 — RDDcat/maro-ppt(MIT) 의 편집 엔진을 이 덱 구조에 맞게 옮겨 넣었다.
+   [편집] 또는 E(한글 ㄷ): 글자를 클릭해 타이핑(서식·구조는 그대로) · Ctrl/⌘S: 이 파일에 덮어쓰기
+   저장 서버(tools/serve.py --open) 로 열었으면 고치는 즉시 원본에 저장되고, file:// 로 열었으면 처음 한 번만 파일을 묻는다.
+   저장 안 한 편집은 "원래 글자"와 함께 브라우저에 남아 새로고침해도 다시 붙는다. 마지막 장 [편집 기능 삭제] = 발표용 HTML */
+(function(){
+  const SEL='.slide h1,.slide h2,.slide h3,.slide p,.slide .sub,.slide .pill,.slide .brand-t,.slide .brand small,'
+           +'.slide .meta > span:first-child,.slide .kpi .k,.slide .kpi .s,.slide [data-count],.slide .v small,'
+           +'.slide .fterm .k,.slide .fterm .v,.slide .fresult .big,.slide .fresult .lab span,.slide .fresult .goal,.slide .ttl span,.slide .stat .k,.slide .legend span,.slide .chart-legend span,'
+           +'.slide .chip .n,.slide .chip .t,.slide .gauge-center .lbl,.slide .insight li b,.slide .pnote,.slide .foot span';
+  const all=[...document.querySelectorAll(SEL)].filter(el=>!el.closest('#plist,#tableWrap'));
+  const nodes=all.filter(el=>!all.some(o=>o!==el&&o.contains(el)));   /* 가장 안쪽 글자 상자만 */
+  if(!nodes.length)return;
+  nodes.forEach((el,i)=>el.dataset.edit=i);
+
+  const FILE=decodeURIComponent(location.pathname.split('/').pop()||'deck.html');
+  const KEY='deck-edit:'+location.pathname;
+  const origin=nodes.map(el=>el.innerHTML);
+  const PT=(()=>{const d=document.createElement('div');d.setAttribute('contenteditable','plaintext-only');return d.contentEditable==='plaintext-only'})();
+  const bEdit=document.getElementById('edit'),bSave=document.getElementById('save'),bReset=document.getElementById('reset'),
+        bFinal=document.getElementById('final'),note=document.getElementById('note');
+  const FSA=!!window.showSaveFilePicker;
+  const LOADED=Date.now();            /* 이 탭이 파일을 읽은 시각 — 이후 파일이 밖에서 바뀌면 덮어쓰기 전에 묻는다 */
+  let on=false,handle=null,asked=false,mine=0,auto=false,timer=0;
+  function say(t,ms){ if(!note)return; note.textContent=t; note.title=t; if(ms)setTimeout(()=>{if(note.textContent===t)note.textContent=''},ms); }
+
+  /* 저장 안 한 편집 복구 — 자리 번호만 믿지 않고 "원래 글자(o)"가 아직 그 자리에 있을 때만 붙인다 */
+  (function restore(){
+    let s;try{s=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return}
+    const e=s&&s.v===2?s.e:null,lost=[],used=new Set();
+    if(!e)return;
+    for(const k in e){
+      const {o,v}=e[k];let el=nodes[k];
+      if(!el||el.innerHTML!==o||used.has(el)){const c=nodes.filter(n=>n.innerHTML===o&&!used.has(n));el=c.length===1?c[0]:null}
+      if(el){el.innerHTML=v;used.add(el)}else lost.push({o,v});
+    }
+    if(lost.length){
+      try{localStorage.setItem(KEY+':lost',JSON.stringify(lost))}catch(_){}
+      window.deckLost=lost; console.warn('다시 붙이지 못한 편집',lost);
+      setTimeout(()=>say('저장하지 않은 편집 '+lost.length+'개를 다시 붙이지 못했다 (파일이 바뀜) — 콘솔 deckLost',8000),500);
+    }
+    store();
+  })();
+  function store(){
+    const e={};
+    nodes.forEach((el,i)=>{if(el.innerHTML!==origin[i])e[i]={o:origin[i],v:el.innerHTML}});
+    try{ if(Object.keys(e).length)localStorage.setItem(KEY,JSON.stringify({v:2,e})); else localStorage.removeItem(KEY); }catch(_){}
+  }
+  const dirty=()=>nodes.some((el,i)=>el.innerHTML!==origin[i]);
+  addEventListener('beforeunload',e=>{if(!leaving&&dirty()){e.preventDefault();e.returnValue=''}});
+
+  /* 저장 서버 모드 — tools/serve.py 로 열었으면(http://127.0.0.1) 고칠 때마다 원본에 바로 쓴다 */
+  let SRV=false,base=0,busy=false,leaving=false,stimer=0;
+  const SP=decodeURIComponent(location.pathname);
+  const H={'X-Maro':'1'};
+  function reloadKeep(){
+    store(); leaving=true;
+    try{sessionStorage.setItem('deck-slide:'+SP,String(typeof cur==='number'?cur:0))}catch(_){}
+    location.reload();
+  }
+  async function srvSave(){
+    if(busy){clearTimeout(stimer);stimer=setTimeout(srvSave,300);return}
+    busy=true;
+    try{
+      const r=await fetch(location.pathname,{method:'PUT',headers:{...H,'X-Base-Mtime':String(base),'Content-Type':'text/html; charset=utf-8'},body:html()});
+      if(r.status===409){say('파일이 밖에서 바뀌어 새로 불러온다 — 내 편집은 다시 붙는다',3000);reloadKeep();return}
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      base=(await r.json()).mtime;
+      nodes.forEach((el,i)=>origin[i]=el.innerHTML);
+      try{localStorage.removeItem(KEY)}catch(_){}
+      say('저장됨',900);
+    }catch(err){say('저장 실패 — 저장 서버가 꺼졌을 수 있다 ('+err.message+')',6000)}
+    finally{busy=false}
+  }
+  (async()=>{
+    if(!/^https?:$/.test(location.protocol))return;
+    try{
+      const ok=await fetch('/__maro/ping',{headers:H,cache:'no-store'});if(!ok.ok)return;
+      const st=await fetch('/__maro/stat?p='+encodeURIComponent(location.pathname),{headers:H,cache:'no-store'});
+      base=(await st.json()).mtime;SRV=true;
+    }catch(_){return}
+    try{const n=sessionStorage.getItem('deck-slide:'+SP);
+      if(n!==null){sessionStorage.removeItem('deck-slide:'+SP);if(typeof go==='function')go(+n)}}catch(_){}
+    if(dirty())srvSave();
+    setInterval(async()=>{
+      if(busy||leaving)return;
+      try{
+        const r=await fetch('/__maro/stat?p='+encodeURIComponent(location.pathname),{headers:H,cache:'no-store'});
+        const m=(await r.json()).mtime;
+        if(m!==base&&!busy&&!(document.activeElement&&document.activeElement.isContentEditable))reloadKeep();
+      }catch(_){}
+    },1500);
+  })();
+
+  function mode(v){
+    on=v; document.body.classList.toggle('editing',on);
+    nodes.forEach(el=>on?el.setAttribute('contenteditable',PT?'plaintext-only':'true'):el.removeAttribute('contenteditable'));
+    bEdit.textContent=on?'편집 끝':'편집'; bEdit.classList.toggle('on',on);
+    bSave.hidden=!on; bReset.hidden=!on;
+    document.dispatchEvent(new CustomEvent('deck:edit',{detail:{on}}));
+    if(!on){say('',0);return}
+    if(SRV)say('고치는 즉시 원본에 저장된다',3000);
+    else if(!FSA)say('이 브라우저는 덮어쓰기를 못 한다 — 저장은 내려받기로 떨어진다',6000);
+    else if(!handle&&!asked)say('저장할 때 파일을 한 번 묻는다. 이 파일을 골라 덮어쓰면 그 뒤로는 안 묻는다',7000);
+  }
+
+  /* 저장할 HTML — 스크립트가 만들어 넣은 것(목록 행·표·점·배경 큐브·인라인 transform)은 걷어내고,
+     편집 상태도 지운다. 다시 열면 스크립트가 그대로 다시 만든다 */
+  function html(){
+    const c=document.documentElement.cloneNode(true);
+    const q=(s,f)=>c.querySelectorAll(s).forEach(f);
+    q('[contenteditable]',e=>e.removeAttribute('contenteditable'));
+    q('[data-edit]',e=>e.removeAttribute('data-edit'));
+    q('.slide',(e,i)=>{e.classList.toggle('active',i===0);e.classList.remove('leaving')});
+    c.querySelector('body').classList.remove('editing');
+    q('#save,#reset,#final',e=>e.setAttribute('hidden',''));
+    const e=c.querySelector('#edit'); if(e){e.textContent='편집';e.classList.remove('on')}
+    const n=c.querySelector('#note'); if(n){n.textContent='';n.removeAttribute('title')}
+    q('#plist .prow:not(.hd)',x=>x.remove());
+    q('#tableWrap',x=>{x.innerHTML='';x.setAttribute('hidden','')});
+    q('#chartWrap',x=>x.removeAttribute('hidden'));
+    const tb=c.querySelector('#tableToggle'); if(tb){tb.textContent='표로 보기';tb.setAttribute('aria-pressed','false')}
+    q('#dots,#bgfx',x=>{x.innerHTML=''});
+    q('#deck,#stage,#prog,#glow,#ring,.cube,.cube .f,canvas',x=>x.removeAttribute('style'));
+    q('canvas',x=>{x.removeAttribute('width');x.removeAttribute('height')});
+    q('.tilt',x=>{['--rx','--ry','--mx','--my'].forEach(p=>x.style.removeProperty(p));if(!x.getAttribute('style'))x.removeAttribute('style')});
+    q('#glow,#ring',x=>x.classList.remove('on','hot'));
+    q('.is-tilting',x=>x.classList.remove('is-tilting'));
+    q('.glitch',x=>x.classList.remove('glitch'));
+    q('.chart-fallback',x=>x.setAttribute('hidden',''));
+    return '<!DOCTYPE html>\n'+c.outerHTML;
+  }
+  window.__deckHtml=html;   /* 스킬 검증용: 저장될 HTML 을 돌려준다 */
+
+  /* 파일 핸들 — 한 번 고르면 IndexedDB 에 남아 다음에도 바로 덮어쓴다 */
+  const idb=()=>new Promise((ok,no)=>{const r=indexedDB.open('deck-editor',1);
+    r.onupgradeneeded=()=>r.result.createObjectStore('handle');r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+  async function recall(){try{const db=await idb();return await new Promise((ok,no)=>{const q=db.transaction('handle').objectStore('handle').get(KEY);q.onsuccess=()=>ok(q.result||null);q.onerror=()=>no(q.error)})}catch(e){return null}}
+  async function keep(h){try{const db=await idb();db.transaction('handle','readwrite').objectStore('handle').put(h,KEY)}catch(e){}}
+  async function target(){
+    if(!FSA)return null;
+    if(!handle)handle=await recall();
+    if(handle){const o={mode:'readwrite'};let p=await handle.queryPermission(o);if(p!=='granted')p=await handle.requestPermission(o);if(p==='granted')return handle;handle=null}
+    asked=true;
+    handle=await showSaveFilePicker({id:'deck-editor',suggestedName:FILE,types:[{description:'HTML 문서',accept:{'text/html':['.html']}}]});
+    await keep(handle);
+    return handle;
+  }
+  async function save(silent){
+    if(SRV)return srvSave();
+    const text=html();
+    try{
+      const first=!handle;
+      const h=silent?handle:await target();
+      if(h){
+        const f=await h.getFile();
+        if(first&&!silent&&f.size===0&&!confirm('고른 파일이 비어 있는 새 파일입니다 — 원본이 아닙니다.\n사본에 저장하면 다음에 원본을 고칠 때 이 편집이 묻힙니다.\n\n그래도 이 새 파일에 저장할까요? (취소하고 원본 "'+FILE+'" 을 고르는 것을 권합니다)')){
+          handle=null;asked=false;say('저장을 취소했다 — 원본 파일을 골라 덮어쓰세요',5000);return;
+        }
+        if(f.size&&f.lastModified>Math.max(LOADED,mine)+1500){
+          auto=false;
+          if(silent){say('파일이 밖에서 바뀌어 자동 저장을 멈췄다 — 새로고침하세요 (편집은 남아 있다)',8000);return}
+          if(!confirm('이 탭을 연 뒤 파일이 밖에서 바뀌었습니다.\n지금 덮어쓰면 그 변경이 사라집니다.\n\n[취소] 후 새로고침을 권합니다 — 저장 안 한 편집은 브라우저에 남아 있다가 다시 붙습니다.\n그래도 덮어쓸까요?')){say('덮어쓰지 않았다 — 새로고침하세요',5000);return}
+        }
+        const w=await h.createWritable(); await w.write(text); await w.close();
+        mine=(await h.getFile()).lastModified;
+        nodes.forEach((el,i)=>origin[i]=el.innerHTML);
+        try{localStorage.removeItem(KEY)}catch(e){}
+        auto=true;
+        if(!silent){bSave.textContent='저장됨';setTimeout(()=>bSave.textContent='저장',1600)}
+        say(h.name+(silent?' 자동 저장':' 덮어씀'),silent?1200:2500);
+        return;
+      }
+    }catch(err){
+      if(err.name==='AbortError'){say('저장을 취소했다',2000);return}
+      if(silent){auto=false;say('자동 저장 실패 — Ctrl+S 로 다시 저장하세요 ('+err.name+')',6000);return}
+      say('덮어쓰기가 막혀 내려받기로 저장한다 ('+err.name+')',6000);
+    }
+    if(silent)return;
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([text],{type:'text/html'}));a.download=FILE;a.click();URL.revokeObjectURL(a.href);
+  }
+
+  /* 편집 기능 삭제 — 마지막 장에서만. data-editor 가 붙은 것(편집 CSS·도구·이 스크립트)을 걷어낸 발표용 HTML 을 새 파일로 */
+  document.addEventListener('deck:slide',e=>{bFinal.hidden=!e.detail.last});
+  bFinal.hidden=!document.querySelector('.slide:last-of-type').classList.contains('active');
+  async function strip(){
+    if(!confirm('편집 기능을 뺀 발표용 HTML 을 따로 저장합니다.\n장 넘기기·효과·차트는 그대로 남고, 저장한 파일은 다시 편집할 수 없습니다.\n원본은 지우지 마세요.'))return;
+    if(on)mode(false);
+    const d=new DOMParser().parseFromString(html(),'text/html');
+    d.querySelectorAll('[data-editor]').forEach(e=>e.remove());
+    const text='<!DOCTYPE html>\n'+d.documentElement.outerHTML,name=FILE.replace(/\.html?$/i,'')+'-발표용.html';
+    try{
+      if(FSA){
+        const h=await showSaveFilePicker({id:'deck-final',suggestedName:name,types:[{description:'HTML 문서',accept:{'text/html':['.html']}}]});
+        const w=await h.createWritable();await w.write(text);await w.close();
+        say(h.name+' 저장 — 편집 기능 없음, '+Math.round(text.length/1024)+'KB',4000);return;
+      }
+    }catch(err){if(err.name==='AbortError'){say('취소했다',2000);return}}
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/html'}));a.download=name;a.click();URL.revokeObjectURL(a.href);
+  }
+  bFinal.onclick=strip;
+  bEdit.onclick=()=>mode(!on);
+  bSave.onclick=()=>save();
+  bReset.onclick=()=>{
+    if(!confirm('고친 내용을 모두 되돌립니다.'))return;
+    nodes.forEach((el,i)=>{el.innerHTML=origin[i];if(el.dataset.count!==undefined){const v=parseFloat(el.textContent.replace(/[^\d.-]/g,''));if(!isNaN(v))el.dataset.count=v}});
+    try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+':lost')}catch(e){}
+    say('되돌렸다',2000);
+  };
+  /* 고칠 때마다 브라우저에 적어 두고, 저장 서버면 0.4초 뒤·파일 핸들이 있으면 1초 뒤 원본에 쓴다.
+     카운트업 숫자(data-count)를 고치면 애니메이션 목표값도 같이 바꾼다 */
+  document.addEventListener('input',e=>{
+    const t=e.target.closest('[data-edit]');if(!t)return;
+    if(t.dataset.count!==undefined){const v=parseFloat(t.textContent.replace(/[^\d.-]/g,''));if(!isNaN(v))t.dataset.count=v}
+    changed();
+  });
+  function changed(){
+    store();
+    if(SRV){clearTimeout(stimer);stimer=setTimeout(srvSave,400);return}
+    if(!auto||!handle)return;
+    clearTimeout(timer);timer=setTimeout(()=>save(true),1000);
+  }
+  addEventListener('keydown',e=>{
+    const S=(e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S'||e.key==='ㄴ'||e.code==='KeyS');
+    if(e.target.isContentEditable){ if(S){e.preventDefault();save()} if(e.key==='Escape')e.target.blur(); return; }
+    if(e.target.closest('input,textarea'))return;
+    if(S&&on){e.preventDefault();save();return}
+    if(!e.metaKey&&!e.ctrlKey&&!e.altKey&&(e.key==='e'||e.key==='E'||e.key==='ㄷ'||e.key==='ㄸ'||e.code==='KeyE')){e.preventDefault();mode(!on)}
+  });
+})();
+</script>
+</body>
+</html>
