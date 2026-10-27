@@ -14,14 +14,14 @@
 Claude Code 안에서:
 
 ```
-/plugin marketplace add kchmok-art/axis
+/plugin marketplace add kchmok-art/axis-skills
 /plugin install axis@axis
 ```
 
 터미널에서(비대화형):
 
 ```bash
-claude plugin marketplace add kchmok-art/axis
+claude plugin marketplace add kchmok-art/axis-skills
 claude plugin install axis@axis
 ```
 
