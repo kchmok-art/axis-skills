@@ -1,13 +1,14 @@
 # axis — Claude Code 스킬 라이브러리
 
-`axis:something` 형태로 쓰는 개인 스킬 모음입니다. 지금은 발표 덱 스킬 두 개가 들어 있습니다.
+`axis:something` 형태로 쓰는 개인 스킬 모음입니다. 지금은 발표 덱 스킬 세 개가 들어 있습니다.
 
 | 스킬 | 호출 | 한 줄 |
 |---|---|---|
 | **ppt1** | `/axis:ppt1` | 연블루 글래스 스타일 · 16:9 HTML 현황 보고 덱 2장 (KPI · 산식 그림 · Chart.js 게이지/누적 막대 · 핵심 포인트 · 우선 관리 목록) |
 | **ppt2** | `/axis:ppt2` | 같은 구성에 홀로그램 데이터 큐브 · 회로망 파티클 · 스캔 리빌 · 네온 글로우 효과 |
+| **ppt3** | `/axis:ppt3` | 라이트 그라디언트 카드 스타일 · 장수 자유 강의·발표 덱 (타이틀·카드·단계·플로우·통계·Chart.js·SVG·질문·구조 도식 장) · 도식 드래그 편집 · 장별 인쇄 |
 
-두 스킬 모두 결과 HTML 에 **글자 직접 편집(E · Ctrl+S 저장)**, **발표용 내보내기**, **PDF 인쇄 CSS**, **느린 자연스러운 모션(`--slow`)**, **마우스 반응 효과**가 들어 있습니다.
+세 스킬 모두 결과 HTML 에 **글자 직접 편집(E · Ctrl+S 저장)**, **발표용 내보내기**, **PDF 인쇄 CSS**, **느린 자연스러운 모션(`--slow`)**, **마우스 반응 효과**가 들어 있습니다.
 
 ## 설치
 
@@ -25,7 +26,7 @@ claude plugin marketplace add kchmok-art/axis-skills
 claude plugin install axis@axis
 ```
 
-설치 후 `/axis:ppt1`, `/axis:ppt2` 로 부르거나 "이 데이터로 현황 보고 슬라이드 만들어줘" 라고 말하면 됩니다.
+설치 후 `/axis:ppt1`, `/axis:ppt2`, `/axis:ppt3` 로 부르거나 "이 데이터로 현황 보고 슬라이드 만들어줘" 라고 말하면 됩니다.
 
 갱신: `/plugin marketplace update axis` 뒤 Marketplaces 탭에서 Update.
 
@@ -38,7 +39,8 @@ axis/
 │   └── plugin.json        ← 플러그인 axis
 ├── skills/
 │   ├── ppt1/  SKILL.md · style.md · template.html · tools/{export.py, serve.py, README.md}
-│   └── ppt2/  SKILL.md · style.md · template.html · tools/{export.py, serve.py, README.md}
+│   ├── ppt2/  SKILL.md · style.md · template.html · tools/{export.py, serve.py, README.md}
+│   └── ppt3/  SKILL.md · style.md · template.html · tools/{build.py, export.py, serve.py, README.md}
 └── README.md · LICENSE
 ```
 

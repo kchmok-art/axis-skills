@@ -3,12 +3,12 @@
   "owner": {
     "name": "kchmok-art"
   },
-  "description": "axis 스킬 라이브러리 — axis:ppt1(글래스 현황 보고 덱), axis:ppt2(홀로그램 데이터 큐브 덱)",
+  "description": "axis 스킬 라이브러리 — axis:ppt1(글래스 현황 보고 덱), axis:ppt2(홀로그램 데이터 큐브 덱), axis:ppt3(라이트 그라디언트 카드 강의 덱)",
   "plugins": [
     {
       "name": "axis",
       "source": "./",
-      "description": "axis 스킬 모음: ppt1·ppt2 (16:9 HTML 현황 보고 덱 + 편집·PDF·모션)"
+      "description": "axis 스킬 모음: ppt1·ppt2 (16:9 HTML 현황 보고 덱) · ppt3 (장수 자유 강의·발표 덱, 도식 편집) + 편집·PDF·모션"
     }
   ]
 }
