@@ -40,7 +40,7 @@ axis/
 ├── skills/
 │   ├── ppt1/  SKILL.md · style.md · template.html · tools/{export.py, serve.py, README.md}
 │   ├── ppt2/  SKILL.md · style.md · template.html · tools/{export.py, serve.py, README.md}
-│   └── ppt3/  SKILL.md · style.md · template.html · tools/{build.py, export.py, serve.py, README.md}
+│   └── ppt3/  SKILL.md · style.md · template.html · tools/{build.py, retrofit.py, export.py, serve.py, README.md}
 └── README.md · LICENSE
 ```
 

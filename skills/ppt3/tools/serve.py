@@ -8,17 +8,21 @@ RDDcat/maro-ppt 의 tools/serve.py (MIT) 를 Windows·프로젝트 폴더 기준
   python tools/serve.py --open "덱.html"   # 서버가 없으면 띄우고(루트 = 그 파일의 폴더), 덱을 브라우저로 연다
   python tools/serve.py --stop             # 서버 끄기
 
-- 127.0.0.1 에서만 듣는다. 루트 폴더 아래 .html 만 읽고 쓴다.
+- 127.0.0.1 에서만 듣는다. 루트 폴더 아래 .html 만 쓴다(PUT).
+  읽기(GET)는 덱이 상대 경로로 부르는 사진·글꼴·스크립트(STATIC 확장자)까지 내준다 — 사진이 든 덱도 서버 모드에서 보인다.
   루트는 --open 한 파일의 폴더다. (환경변수 MARO_PPT_ROOT 로 바꿀 수 있다)
 - 쓰기는 X-Maro 헤더가 있어야 받는다 → 다른 사이트가 몰래 쓸 수 없다(CORS 사전 요청을 허락하지 않는다).
 - X-Base-Mtime 이 지금 파일과 다르면(에이전트가 그 사이 고쳤으면) 409 로 거절한다.
   덱은 409 를 받으면 새로고침하고, 저장 안 한 편집을 원래 글자 기준으로 다시 붙여 저장한다.
 """
-import http.server, json, os, sys, subprocess, time, urllib.parse, urllib.request, tempfile, signal
+import http.server, json, mimetypes, os, sys, subprocess, time, urllib.parse, urllib.request, tempfile, signal
 
 PORT = int(os.environ.get("MARO_PPT_PORT", "8765"))
 PIDFILE = os.path.join(tempfile.gettempdir(), f"maro-ppt-serve-{PORT}.pid")
 ROOT = os.path.realpath(os.environ.get("MARO_PPT_ROOT") or os.getcwd())
+HTML = (".html", ".htm")
+STATIC = HTML + (".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".svg", ".ico", ".css", ".js", ".json",
+                 ".woff", ".woff2", ".ttf", ".otf", ".mp4", ".webm", ".mp3", ".pdf")
 
 
 def under(p, root):
@@ -26,12 +30,19 @@ def under(p, root):
     return p == root or p.startswith(root.rstrip(os.sep) + os.sep)
 
 
-def resolve(url_path):
+def resolve(url_path, exts=HTML):
     rel = urllib.parse.unquote(url_path.split("?")[0]).lstrip("/")
     p = os.path.realpath(os.path.join(ROOT, *rel.split("/")))
-    if not under(p, ROOT) or not p.lower().endswith((".html", ".htm")):
+    if not under(p, ROOT) or not p.lower().endswith(exts):
         return None
     return p
+
+
+def ctype(p):
+    if p.lower().endswith(HTML):
+        return "text/html; charset=utf-8"
+    t = mimetypes.guess_type(p)[0] or "application/octet-stream"
+    return t + ("; charset=utf-8" if t.startswith("text/") or t.endswith(("javascript", "json")) else "")
 
 
 def mtime(p):
@@ -61,11 +72,11 @@ class H(http.server.BaseHTTPRequestHandler):
             if not p or not os.path.isfile(p):
                 return self.send(404, {"error": "not found"})
             return self.send(200, {"mtime": mtime(p)})
-        p = resolve(u.path)
+        p = resolve(u.path, STATIC)           # 읽기는 사진·글꼴까지, 쓰기(PUT)는 .html 만
         if not p or not os.path.isfile(p):
             return self.send(404, b"not found", "text/plain")
         with open(p, "rb") as f:
-            self.send(200, f.read(), "text/html; charset=utf-8")
+            self.send(200, f.read(), ctype(p))
 
     def do_PUT(self):
         if self.headers.get("X-Maro") != "1":

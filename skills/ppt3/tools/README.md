@@ -23,8 +23,18 @@
 | 되돌리기 | `[원래대로]` |
 | 발표용 파일 | 마지막 장에서 `[편집 기능 삭제]` → `{이름}-발표용.html` 로 따로 저장 (효과·차트·장 넘기기는 그대로, 편집만 빠짐) |
 
-- 편집 중에는 `←` `→`·휠·클릭으로 장이 넘어가지 않습니다. `Esc` 로 글자 상자에서 나옵니다.
+- 편집 중에는 `←` `→`·휠·클릭·스와이프로 장이 넘어가지 않습니다. `Esc` 로 글자 상자에서 나옵니다.
 - 저장 안 한 편집은 브라우저(localStorage)에 남아 새로고침해도 같은 자리에 다시 붙습니다.
+- 장 안의 글자는 모두 고칠 수 있습니다(사진 캡션·이름표처럼 새로 넣은 부품 포함). 발표용 파일에도 인쇄(PDF) 설정은 남습니다.
+
+### 편집 기능이 없는 예전 덱
+
+하단에 `[편집]` 버튼이 없으면 편집 엔진이 들어오기 전에 만든 덱입니다. 엔진을 이식한 새 파일을 만듭니다(원본은 그대로).
+
+```bash
+python tools/retrofit.py "예전덱.html" --out "예전덱_v2.html"
+python tools/export.py check "예전덱_v2.html"   # data-editor 4 · id=edit 1 · EDIT=function
+```
 
 ### 도식 장 (박스 + 화살표)
 
@@ -47,7 +57,7 @@ python tools/serve.py --open "덱.html"   # 띄우고 브라우저로 연다
 python tools/serve.py --stop             # 끄기
 ```
 
-- `127.0.0.1:8765` 에서만 듣고, `--open` 한 파일의 폴더 아래 `.html` 만 읽고 씁니다. (포트: `MARO_PPT_PORT`)
+- `127.0.0.1:8765` 에서만 듣고, `--open` 한 파일의 폴더 아래 `.html` 만 씁니다. 덱이 상대 경로로 부르는 사진·글꼴은 읽기 전용으로 내줍니다. (포트: `MARO_PPT_PORT`)
 - 열린 탭이 1.5초마다 파일을 확인합니다. 에이전트가 파일을 고치면 탭이 알아서 새로고침해 그 변경을 받습니다(보던 장 유지).
 - 저장 직전에 파일이 바뀌었으면 서버가 409 로 거절하고, 탭은 새로고침한 뒤 사용자 편집을 다시 붙여 저장합니다.
 
@@ -61,8 +71,10 @@ python tools/serve.py --stop             # 끄기
 ```bash
 grep -c 'id="edit"'  "$f"   # 1
 grep -c 'id="final"' "$f"   # 1
-grep -oE '<(style|span|script)[^>]* data-editor>' "$f" | wc -l   # 4 (편집 CSS · 도구 · 편집 스크립트 · 도식 편집기)
+grep -oE '<(style|span|script)[^>]* data-editor(="")?>' "$f" | wc -l   # 4 (편집 CSS · 도구 · 편집 스크립트 · 도식 편집기)
 ```
 
-- 글자는 편집 대상 선택자 안에 둡니다(`h1 h2 h3 h4 p .lead .kicker .band .pill .tag .step b/span ul.list li .stat .v/.l/.s .big .prompt .src .chip em/b/small svg text`).
-- 스크립트가 만들어 넣는 요소(`.dg-wire .dg-fit .dg-grip`, 인라인 transform)는 저장 시 `html()` 이 걷어냅니다. 브라우저 콘솔 `__deckHtml()` 로 저장될 HTML 을 확인할 수 있습니다.
+- 글자 편집 대상: 선택자 목록(`h1 h2 h3 h4 p .lead .kicker .band .pill .tag .step b/span ul.list li .stat .v/.l/.s .big .prompt .src .chip em/b/small svg text`)
+  + 장 안에서 맨 글자를 직접 가진 모든 요소(자동). 빼려면 `data-noedit`, 억지로 넣으려면 `data-txt`.
+- 스크립트가 만들어 넣는 요소(`.dg-wire .dg-fit .dg-grip`, 인라인 transform, `data-runtime` 이 붙은 것)는 저장 시 `html()` 이 걷어냅니다.
+  덱 고유 스크립트가 실행 중에 만드는 확대창·툴팁 등에는 `data-runtime` 을 붙입니다. 브라우저 콘솔 `__deckHtml()` 로 저장될 HTML 을 확인할 수 있습니다.

@@ -110,7 +110,7 @@ def main():
         sys.exit(f"도식 박스 id 가 겹친다(덱 전체에서 유일해야 한다): {sorted(dup)}")
 
     open(a.out, "w", encoding="utf-8").write(s)
-    editor = len(re.findall(r"<(style|span|script)[^>]* data-editor>", s))
+    editor = len(re.findall(r"<(style|span|script)[^>]* data-editor(?:=\"\")?>", s))
     print(f"wrote {a.out}  {len(s):,} bytes | slides {n_slides} | charts {len(keys_def)} | dg {s.count('class=\"dg\"')} | data-editor {editor} (4 이어야 함)")
 
 

@@ -59,6 +59,8 @@ def dump(url, budget=10000, extra=()):
 
 def with_injection(src, head_extra="", body_extra=""):
     s = open(src, encoding="utf-8").read()
+    # 사본은 임시 폴더에서 열린다 — 덱이 상대 경로로 부르는 사진(1.jpg 등)이 깨지지 않게 원본 폴더를 base 로 건다
+    head_extra = '<base href="' + file_url(os.path.dirname(os.path.realpath(src))) + '/">' + head_extra
     if head_extra:
         s = s.replace("</head>", head_extra + "</head>", 1)
     if body_extra:
@@ -83,7 +85,7 @@ def cmd_check(src):
     r = subprocess.run(["node", "--check", jp], capture_output=True, text=True)
     print("node --check:", "OK" if r.returncode == 0 else "FAIL\n" + r.stderr)
     n = s.count('<section class="slide')
-    print("slides:", n, "| data-editor:", len(re.findall(r"<(style|span|script)[^>]* data-editor>", s)), "(4)",
+    print("slides:", n, "| data-editor:", len(re.findall(r"<(style|span|script)[^>]* data-editor(?:=\"\")?>", s)), "(4)",
           "| id=edit:", s.count('id="edit"'), "| id=final:", s.count('id="final"'),
           "| dg:", s.count('class="dg"'), "| canvas[data-chart]:", len(re.findall(r'canvas data-chart=', s)))
     # 모든 장을 한 번씩 열어 차트 생성·도식 렌더까지 돌린 뒤 오류를 모은다

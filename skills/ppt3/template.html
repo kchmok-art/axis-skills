@@ -299,7 +299,9 @@ ul.list.ok li:before{background:#45c391}
 .dg-grip{position:absolute;right:-7px;bottom:-7px;width:14px;height:14px;border-radius:4px;background:var(--grad);border:2px solid #fff;box-shadow:var(--shadow);cursor:nwse-resize}
 .dg-node [contenteditable]{outline:2px solid var(--violet);outline-offset:2px;cursor:text}
 @media print{.tools{display:none!important}}
-/* ───────── 인쇄·PDF: 슬라이드 1장 = 1쪽. 배경 효과·내비·편집 도구는 뺀다 ───────── */
+</style>
+<style>
+/* ───────── 인쇄·PDF: 슬라이드 1장 = 1쪽. 배경 효과·내비·편집 도구는 뺀다. data-editor 가 아니라서 발표용 파일에도 남는다 ───────── */
 @media print{
   @page{size:1600px 900px;margin:0}
   html,body{overflow:visible!important;height:auto!important;background:#fff}
@@ -749,7 +751,7 @@ document.getElementById('stage').addEventListener('click',e=>{
 });
 // 터치 스와이프
 let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
-addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)go(cur+(d<0?1:-1))});
+addEventListener('touchend',e=>{if(document.body.classList.contains('editing'))return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)go(cur+(d<0?1:-1))});
 
 /* ───────────────────────── 마우스 반응 ───────────────────────── */
 const blobs=[...document.querySelectorAll('.blob')], fw=document.getElementById('fwrap'),
@@ -978,8 +980,13 @@ addEventListener('beforeprint',()=>{
            +'.slide .stat .v,.slide .stat .l,.slide .stat .s,.slide .big,.slide .prompt,.slide .perm,.slide .src,'
            +'.slide .chip em,.slide .chip b,.slide .chip small,.slide .mock .bar span,.slide .mock .input span,.slide .mock .input b,.slide .mock .btn,'
            +'.slide .q b,.slide .q li,.slide .q small,.slide .q .qt,'
-           +'.slide svg text,.topbar .logo b,.topbar .logo small';
-  const all=[...document.querySelectorAll(SEL)].filter(el=>!el.closest('.dg'));           /* 도식 글자는 도식 편집기가 맡는다 */
+           +'.slide svg text,.slide [data-txt],.topbar .logo b,.topbar .logo small';
+  /* 선택자 밖의 글자도 놓치지 않는다 — 장 안에서 맨 글자(텍스트 노드)를 직접 가진 요소는 모두 편집 대상이다.
+     새 부품(사진 캡션·이름표 등)을 넣어도 따로 등록하지 않아도 된다. 빼려면 data-noedit, 억지로 넣으려면 data-txt */
+  const bare=el=>[...el.childNodes].some(c=>c.nodeType===3&&c.textContent.trim());
+  const extra=[...document.querySelectorAll('.slide *')].filter(el=>!el.closest('svg,.dg,button,script,style,canvas')&&bare(el));
+  const all=[...new Set([...document.querySelectorAll(SEL),...extra])]
+            .filter(el=>!el.closest('.dg,[data-noedit],[data-runtime]'));                  /* 도식 글자는 도식 편집기가 맡는다 */
   const nodes=all.filter(el=>!all.some(o=>o!==el&&o.contains(el)));                        /* 가장 안쪽 글자 상자만 */
   if(!nodes.length)return;
   nodes.forEach((el,i)=>el.dataset.edit=i);
@@ -1106,6 +1113,7 @@ addEventListener('beforeprint',()=>{
     q('.dg-fit',f=>{const cv=f.querySelector('.dg');if(cv){cv.style.transform='';cv.style.width='';cv.style.height='';if(!cv.getAttribute('style'))cv.removeAttribute('style');f.replaceWith(cv)}else f.remove()});
     q('.dg-wire,.dg-grip',x=>x.remove());
     q('.dg-sel',x=>x.classList.remove('dg-sel'));
+    q('[data-runtime]',x=>x.remove());                            /* 스크립트가 실행 중에 만든 것(사진 확대창 등) */
     return '<!doctype html>\n'+c.outerHTML;
   }
   window.__deckHtml=html;   /* 스킬 검증용: 저장될 HTML 을 돌려준다 */
